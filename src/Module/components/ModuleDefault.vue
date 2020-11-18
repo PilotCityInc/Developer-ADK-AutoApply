@@ -34,14 +34,23 @@
       </v-expansion-panels>
     </div>
 
-    <v-progress-linear
+    <Table class="module-default__table-view"></Table>
+
+    <div class="module-default__buttons">
+      <v-btn depressed :ripple="false" color="#6EBA7F" class="module-default__auto"
+        >Auto-apply</v-btn
+      >
+      <v-btn depressed :ripple="false" outlined class="module-default__opt">Opt-out</v-btn>
+    </div>
+
+    <!-- <v-progress-linear
       class="module-default__collapse-divider"
       color="#dedede"
       height="2"
       value="75"
       buffer-value="95"
       stream
-    />
+    /> -->
 
     <div class="module-default__scope">
       <v-btn dense color="blue" small rounded outlined depressed
@@ -328,11 +337,13 @@
 <script lang="ts">
 import { ref } from '@vue/composition-api';
 import Instruct from './ModuleInstruct.vue';
+import Table from './TableView.vue';
 
 export default {
   name: 'ModuleDefault',
   components: {
-    Instruct
+    Instruct,
+    Table
   },
   apollo: {},
   data() {
@@ -351,6 +362,24 @@ export default {
 
 <style lang="scss">
 .module-default {
+  &__buttons {
+    margin-bottom: 20px;
+  }
+
+  &__auto {
+    margin-right: 20px;
+  }
+
+  &__opt {
+  }
+
+  &__table-view {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 20px;
+  }
+
   &__collapse-divider {
     margin-top: 15px;
     margin-bottom: 75px;
