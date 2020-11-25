@@ -2,21 +2,22 @@
   <v-container class="module-edit">
     <div class="module-edit__container">
       <!-- <v-divider class="presets__divider"></v-divider> -->
-      <div class = "preset__question1">
-      <div class = "preset__title1">Is a resume required?</div>
-      <v-checkbox label="Yes"></v-checkbox>
-      <v-checkbox label="No"></v-checkbox>
+      <div class="preset__question1">
+        <div class="preset__title1">Is a resume required?</div>
+        <v-checkbox label="Yes"></v-checkbox>
+        <v-checkbox label="No"></v-checkbox>
       </div>
-      <div class = "preset__title2"> What transportation requirements are needed to participate in the internship program?</div>
-      <v-text-field
-        label="Enter requirements"
-        value=""
-        outlined
-      ></v-text-field>
-      <v-divider class="presets__divider"></v-divider>
+      <div class="preset__title2">
+        What transportation requirements are needed to participate in the internship program?
+      </div>
+      <v-text-field label="Enter requirements" value="" outlined></v-text-field>
+      <!-- <v-divider class="presets__divider"></v-divider> -->
       <div class="module-default__scope">
         <v-btn x-large depressed outlined>Save</v-btn>
       </div>
+      <!-- NO SETUP NECESSARY / COMMENT OUT IF SETUP IS NECESSARY -->
+      <!-- <div class="module-setup__none">No setup necessary</div> -->
+      <!-- ENTER CONTENT HERE -->
     </div>
   </v-container>
 </template>
@@ -29,28 +30,7 @@ export default {
   name: 'ModuleSetup',
 
   setup() {
-    const setup = reactive({
-      outcomes: ['Build portfolio project', 'Qualify for internship to execute on project'],
-      outcomesValue: ['Build portfolio project', 'Qualify for internship to execute on project'],
-      deliverables: [
-        'Business Model Canvas',
-        'One Sentence Pitch',
-        'Elevator Pitch',
-        'Design & Prototype Log',
-        'Prototype Demo',
-        'Presentation Deck'
-      ],
-      deliverablesValue: [
-        'Business Model Canvas',
-        'One Sentence Pitch',
-        'Elevator Pitch',
-        'Design & Prototype Log',
-        'Prototype Demo',
-        'Presentation Deck'
-      ],
-      chips: ['Must use employer product'],
-      items: ['Must use employer product', 'Must use employer service', 'Must use employer process']
-    });
+    const setup = reactive({});
     return {
       ...toRefs(setup)
     };
@@ -60,9 +40,16 @@ export default {
 
 <style lang="scss">
 .module-setup {
-  &__buildscope {
-    text-align: right;
-    margin-bottom: 10px;
+  &__none {
+    border-radius: 5px;
+    // border: 1px solid #dedede;
+    height: 100px;
+    text-align: center;
+    background-color: #dedede;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 18px;
+    padding-top: 35px;
   }
 }
 </style>
