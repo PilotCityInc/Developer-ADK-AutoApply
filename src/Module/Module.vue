@@ -65,7 +65,7 @@
     <div class="module__container" :style="{ 'border-color': getColor }">
       <div class="module__title">
         <div class="module__image rounded-circle">
-          <v-icon light x-large :color="selectedColor">mdi-progress-question</v-icon>
+          <v-icon light x-large :color="selectedColor">mdi-flag-checkered</v-icon>
         </div>
         <div class="module__header text-md-h5 text-sm-subtitle-1 d-flex align-center">
           <input :value="moduleName" type="text" class="module__header-text" />
@@ -383,7 +383,7 @@ export default {
 
   setup() {
     // ENTER ACTIVITY NAME BELOW
-    const moduleName = ref('Activity Name');
+    const moduleName = ref('Auto-Application');
     const page = reactive({
       subpages: ['Setup', 'Presets', 'Monitor'],
       currentPage: 'Setup'
@@ -398,7 +398,7 @@ export default {
         ['#ae90b0', '#f79961', '#000000']
       ],
       // ENTER ACTIVITY COLOR
-      selectedColor: '#dedede'
+      selectedColor: '#f79961'
     });
     const getColor = computed(() => {
       return color.selectedColor.substring(0, 7);

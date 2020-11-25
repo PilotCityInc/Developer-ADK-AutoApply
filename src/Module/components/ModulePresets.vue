@@ -65,37 +65,43 @@
 </template>
 
 <script lang="ts">
-import { reactive, toRefs } from '@vue/composition-api';
+import { reactive, ref, toRefs } from '@vue/composition-api';
+import Instruct from './ModuleInstruct.vue';
 // import gql from 'graphql-tag';
 
 export default {
-  name: 'ModuleSetup',
-
+  name: 'ModulePresets',
+  components: {
+    Instruct
+  },
+  apollo: {},
   setup() {
-    const setup = reactive({
-      outcomes: ['Build portfolio project', 'Qualify for internship to execute on project'],
-      outcomesValue: ['Build portfolio project', 'Qualify for internship to execute on project'],
-      deliverables: [
-        'Business Model Canvas',
-        'One Sentence Pitch',
-        'Elevator Pitch',
-        'Design & Prototype Log',
-        'Prototype Demo',
-        'Presentation Deck'
+    const presets = reactive({
+      group: ['Setup', 'Project', 'Screening', 'Internship'],
+      required: ['Creator requires this activity', 'Yes', 'No'],
+      lockOrder: ['Creator locked activity group and placement order', 'Yes', 'No'],
+      deliverable: ['Yes', 'No'],
+      notifications: ['Creator turned on by default', 'Turn on', 'Turn off'],
+      accessibility: [
+        'Creator has turned off accessibility anytime',
+        'Creator has turned on accessibility anytime',
+        'Yes',
+        'No'
       ],
-      deliverablesValue: [
-        'Business Model Canvas',
-        'One Sentence Pitch',
-        'Elevator Pitch',
-        'Design & Prototype Log',
-        'Prototype Demo',
-        'Presentation Deck'
-      ],
-      chips: ['Must use employer product'],
-      items: ['Must use employer product', 'Must use employer service', 'Must use employer process']
+      endEarly: [
+        'Creator has not allowed participants to end early after this activity',
+        'Creator has allow end early option only at preset order placement',
+        'Yes',
+        'No'
+      ]
+    });
+    const setupInstructions = ref({
+      description: '',
+      instructions: ['', '', '']
     });
     return {
-      ...toRefs(setup)
+      ...toRefs(presets),
+      setupInstructions
     };
   }
 };
@@ -106,6 +112,49 @@ export default {
   &__buildscope {
     text-align: right;
     margin-bottom: 10px;
+  }
+}
+
+.presets {
+  &__question-title {
+    font-family: Raleway;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 30px;
+    // margin-top: 25px;
+  }
+  &__reflection-buttons {
+    margin-right: 10px;
+    margin-top: 10px;
+  }
+
+  &__reflection {
+    margin-left: auto;
+  }
+
+  &__divider {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  &__section-title {
+    color: #000000;
+    font-size: 25px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  &__nopresets {
+    border-radius: 5px;
+    // border: 1px solid #dedede;
+    height: 100px;
+    text-align: center;
+    background-color: #dedede;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 18px;
+    padding-top: 35px;
   }
 }
 </style>

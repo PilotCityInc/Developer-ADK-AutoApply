@@ -41,14 +41,17 @@
       buffer-value="100"
       stream
     />
-    <div class="module-edit__container">
+    <div class="module-edit__container-table">
       <Table class="module-default__table-view"></Table>
-
+    </div>
+    <div class="module-edit__container">
       <div class="module-default__buttons">
-        <v-btn depressed :ripple="false" color="#6EBA7F" class="module-default__auto"
+        <v-btn x-large depressed :ripple="false" outlined class="module-default__auto"
+          >Opt-out</v-btn
+        >
+        <v-btn x-large depressed :ripple="false" color="#6EBA7F" dark class="module-default__opt"
           >Auto-apply</v-btn
         >
-        <v-btn depressed :ripple="false" outlined class="module-default__opt">Opt-out</v-btn>
       </div>
       <!-- ENTER CONTENT HERE -->
       <!-- DESIGN YOUR ACTIVITY HERE / COMMENT OUT WHEN YOU'VE STARTED DESIGNING
@@ -87,6 +90,11 @@ export default {
 .module-default {
   &__buttons {
     margin-bottom: 20px;
+    flex-direction: row;
+    display: flex;
+    // align-content: center;
+    // align-items: center;
+    justify-content: center;
   }
 
   &__auto {
@@ -98,8 +106,8 @@ export default {
 
   &__table-view {
     width: 100%;
-    padding-left: 10px;
-    padding-right: 10px;
+    // padding-left: 10px;
+    // padding-right: 10px;
     margin-bottom: 20px;
   }
   &__none {
