@@ -4,10 +4,13 @@
       <div class="module-edit__container">
         <!-- <v-divider class="presets__divider"></v-divider> -->
         <div class="preset__question1">
-          <div class="preset__title1">Is a resume required?</div>
-          <v-checkbox label="Yes"></v-checkbox>
-          <v-checkbox label="No"></v-checkbox>
+          <div class="preset__title1">Is a resume required?*</div>
+          <v-radio-group v-model="resumeRequired" mandatory>
+            <v-radio label="Yes"></v-radio>
+            <v-radio label="No"></v-radio>
+          </v-radio-group>
         </div>
+
         <div class="preset__title2">
           What transportation requirements are needed to participate in the internship program?
         </div>
@@ -32,7 +35,7 @@
 </template>
 
 <script lang="ts">
-import { reactive, toRefs, ref } from '@vue/composition-api';
+import { reactive, ref } from '@vue/composition-api';
 // import gql from 'graphql-tag';
 
 export default {
@@ -41,7 +44,7 @@ export default {
   setup() {
     // const setup = reactive({''});
     const requirements = ref('');
-    const resumeRequired = ref('');
+    const resumeRequired = ref('0');
 
     return {
       // ...toRefs(setup),
@@ -65,6 +68,11 @@ export default {
     color: #ffffff;
     font-size: 18px;
     padding-top: 35px;
+  }
+}
+.preset {
+  &__title2 {
+    margin-bottom: 15px;
   }
 }
 </style>
