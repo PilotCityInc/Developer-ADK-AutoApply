@@ -12,16 +12,13 @@
         </div>
 
         <div class="preset__title2">
-          What transportation requirements are needed to participate in the internship program?
+          Is transportation required to participate in the internship program?
         </div>
-        <validation-provider v-slot="{ errors }" slim rules="required">
-          <v-text-field
-            v-model="requirements"
-            label="Enter requirements"
-            :error-messages="errors"
-            outlined
-          ></v-text-field>
-        </validation-provider>
+        <v-radio-group v-model="requirements" mandatory>
+          <v-radio label="Yes"></v-radio>
+          <v-radio label="No"></v-radio>
+        </v-radio-group>
+
         <!-- <v-divider class="presets__divider"></v-divider> -->
         <div class="module-default__scope">
           <v-btn x-large depressed outlined :disabled="invalid">Save</v-btn>
@@ -43,7 +40,7 @@ export default {
 
   setup() {
     // const setup = reactive({''});
-    const requirements = ref('');
+    const requirements = ref('0');
     const resumeRequired = ref('0');
 
     return {
