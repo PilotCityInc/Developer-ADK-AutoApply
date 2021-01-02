@@ -12,7 +12,7 @@
         </div>
 
         <div class="preset__title2">
-          Is transportation required to participate in the internship program?
+          Is transportation required to participate in the internship program?*
         </div>
         <v-radio-group v-model="requirements" mandatory>
           <v-radio label="Yes"></v-radio>
