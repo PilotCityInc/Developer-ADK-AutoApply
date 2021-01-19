@@ -340,7 +340,7 @@ body {
 </style>
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import '@/styles/module.scss';
+import '../styles/module.scss';
 import * as Module from './components';
 
 export default defineComponent({
