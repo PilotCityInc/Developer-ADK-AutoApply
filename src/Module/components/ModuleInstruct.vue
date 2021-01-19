@@ -21,7 +21,7 @@
             <span>Instructions</span>
           </div>
           <div
-            v-for="(i, index) in autoapplyInstructions"
+            v-for="(i, index) in demoInstructions"
             :key="index"
             class="module-instruct__instructions-item"
           >
@@ -34,7 +34,7 @@
 
             <validation-provider v-slot="{ errors }" slim rules="required">
               <v-textarea
-                v-model="autoapplyInstructions[index]"
+                v-model="demoInstructions[index]"
                 row-height="3"
                 rows="1"
                 outlined
@@ -62,19 +62,30 @@
 </template>
 
 <script lang="ts">
-import { ref } from '@vue/composition-api';
+import { defineComponent } from '@vue/composition-api';
 
-export default {
+export default defineComponent({
   name: 'ModuleInstruct',
-  setup() {
-    const autoapplyInstructions = ref(['']);
-    const goal = ref(['']);
-    function populate() {
-      autoapplyInstructions.value.push('');
+  data() {
+    return {
+      demoInstructions: [''],
+      goal: ''
+    };
+  },
+  methods: {
+    populate() {
+      this.demoInstructions.push('');
     }
-    return { autoapplyInstructions, populate, goal };
   }
-};
+  // setup() {
+  //   const demoInstructions = ref(['']);
+  //   const goal = ref(['']);
+  //   function populate() {
+  //     demoInstructions.value.push('');
+  //   }
+  //   return { demoInstructions, populate, goal };
+  // }
+});
 </script>
 
 <style lang="scss">

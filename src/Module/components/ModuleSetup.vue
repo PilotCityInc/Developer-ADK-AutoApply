@@ -32,25 +32,31 @@
 </template>
 
 <script lang="ts">
-import { reactive, ref } from '@vue/composition-api';
+import { defineComponent } from '@vue/composition-api';
 // import gql from 'graphql-tag';
 
-export default {
+export default defineComponent({
   name: 'ModuleSetup',
-
-  setup() {
-    // const setup = reactive({''});
-    const requirements = ref('0');
-    const resumeRequired = ref('0');
-
+  data() {
     return {
-      // ...toRefs(setup),
-      reactive,
-      resumeRequired,
-      requirements
+      requirements: 0,
+      resumeRequired: 0
     };
   }
-};
+
+  // setup() {
+  //   // const setup = reactive({''});
+  //   const requirements = ref('0');
+  //   const resumeRequired = ref('0');
+
+  //   return {
+  //     // ...toRefs(setup),
+  //     reactive,
+  //     resumeRequired,
+  //     requirements
+  //   };
+  // }
+});
 </script>
 
 <style lang="scss">
