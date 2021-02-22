@@ -82,6 +82,7 @@
           buffer-value="100"
           stream
         />
+
         <div v-if="currentPage != 'preview'" class="module__pagination">
           <div v-for="page in subpages" :key="page" :class="{ active: currentPage == page }">
             <div class="module__pagination-button--active" />
@@ -99,15 +100,15 @@
           </div>
         </div>
         <div class="module__page">
-          <keep-alive>
-            <component :is="getComponent" />
-          </keep-alive>
+          <!-- <keep-alive> -->
+          <component :is="getComponent" />
+          <!-- </keep-alive> -->
         </div>
       </div>
     </div>
     <!-- TIMELINE START -->
 
-    <template>
+    <!-- <template>
       <v-container v-if="currentPage == 'preview'" style="max-width: 675px">
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
@@ -197,15 +198,15 @@
               <v-row justify="space-between">
                 <v-col cols="7" v-text="event.text"></v-col>
                 <v-col class="text-right" cols="3" v-text="event.time"></v-col>
-                <v-col class="text-right" cols="2">
-                  <!-- POSTER, STUDENT PARTICIPANT OR ORGANIZER CAN DELETE POSTS -->
-                  <v-btn small class="module__trash" icon
+                <v-col class="text-right" cols="2"> -->
+    <!-- POSTER, STUDENT PARTICIPANT OR ORGANIZER CAN DELETE POSTS -->
+    <!-- <v-btn small class="module__trash" icon
                     ><v-icon small color="grey" class="module__trash"
                       >mdi-trash-can-outline</v-icon
                     ></v-btn
-                  >
-                  <!-- ANYONE CAN FLAG COMMENTS -->
-                  <v-btn small class="module__trash" icon
+                  > -->
+    <!-- ANYONE CAN FLAG COMMENTS -->
+    <!-- <v-btn small class="module__trash" icon
                     ><v-icon small color="grey" class="module__trash">mdi-flag</v-icon></v-btn
                   ></v-col
                 >
@@ -213,15 +214,15 @@
 
               <v-btn class="" icon><v-icon color="grey lighten-2">mdi-thumb-up</v-icon></v-btn>
 
-              <v-btn class="" icon><v-icon color="grey lighten-2">mdi-thumb-down</v-icon></v-btn>
-              <!--
+              <v-btn class="" icon><v-icon color="grey lighten-2">mdi-thumb-down</v-icon></v-btn> -->
+    <!--
               <v-btn x-small outlined depressed class="mx-0">Reply</v-btn>
               <v-btn small class="" icon><v-icon color="grey lighten-2">mdi-flag</v-icon></v-btn> -->
-            </v-timeline-item>
+    <!-- </v-timeline-item>
           </v-slide-x-transition>
         </v-timeline>
       </v-container>
-    </template>
+    </template> -->
     <!-- TIMELINE END -->
   </v-container>
 </template>
@@ -230,7 +231,6 @@ html,
 body {
   font-family: 'Raleway';
   font-size: 16px;
-
   width: 100%;
   height: 100%;
 }
@@ -268,7 +268,6 @@ import * as Module from './components';
 export default defineComponent({
   name: 'ModuleName',
   components: {
-    'module-monitor': Module.Monitor,
     'module-setup': Module.Setup,
     'module-presets': Module.Presets,
     'module-preview': Module.Default
@@ -291,7 +290,7 @@ export default defineComponent({
     // ENTER ACTIVITY NAME BELOW
     const moduleName = ref('Auto-Application');
     const page = reactive({
-      subpages: ['Setup', 'Presets', 'Monitor'],
+      subpages: ['Setup', 'Presets'],
       currentPage: 'Setup'
     });
     const getComponent = computed(() => {
