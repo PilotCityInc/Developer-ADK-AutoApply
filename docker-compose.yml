@@ -4,7 +4,7 @@ networks:
     driver: bridge
 services:
   autoapply: #in container-based development
-    image: pilotcity/boiler
+    build: .
     container_name: autoapply
     environment:
       - NODE_ENV=development
