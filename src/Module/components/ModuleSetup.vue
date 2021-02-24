@@ -5,23 +5,23 @@
         <!-- <v-divider class="presets__divider"></v-divider> -->
         <div class="preset__question1">
           <div class="preset__title1">Is a resume required?*</div>
-          <v-radio-group v-model="resumeRequired" mandatory>
-            <v-radio label="Yes"></v-radio>
+          <v-radio-group v-model="programDoc.data.adks[index].autoapply[0].requirements" mandatory>
             <v-radio label="No"></v-radio>
+            <v-radio label="Yes"></v-radio>
           </v-radio-group>
         </div>
 
         <div class="preset__title2">
           Is transportation required to participate in the internship program?*
         </div>
-        <v-radio-group v-model="requirements" mandatory>
-          <v-radio label="Yes"></v-radio>
+        <v-radio-group v-model="programDoc.data.adks[index].autoapply[0].resumeRequired" mandatory>
           <v-radio label="No"></v-radio>
+          <v-radio label="Yes"></v-radio>
         </v-radio-group>
 
         <!-- <v-divider class="presets__divider"></v-divider> -->
         <div class="module-default__scope">
-          <v-btn x-large depressed outlined :disabled="invalid">Save</v-btn>
+          <v-btn x-large depressed outlined :disabled="invalid" @click="process()">Save</v-btn>
         </div>
         <!-- NO SETUP NECESSARY / COMMENT OUT IF SETUP IS NECESSARY -->
         <!-- <div class="module-setup__none">No setup necessary</div> -->
@@ -32,30 +32,62 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
-// import gql from 'graphql-tag';
+import { defineComponent, ref, computed, PropType, toRefs, reactive } from '@vue/composition-api';
+// import { createLoader } from 'pcv4lib/src';
+import MongoDoc from '../types';
 
 export default defineComponent({
   name: 'ModuleSetup',
-  data() {
+  props: {
+    value: {
+      required: true,
+      type: Object as PropType<MongoDoc>
+    }
+  },
+
+  setup(props, ctx) {
+    const programDoc = computed({
+      get: () => props.value,
+      set: newVal => {
+        ctx.emit('input', newVal);
+      }
+    });
+
+    const index = programDoc.value.data.adks.findIndex(function findautoapplyobj(obj) {
+      return obj.name === 'autoapply';
+    });
+
+    const inintAutoapplysetup = {
+      autoapply: [
+        {
+          requirements: 0,
+          resumeRequired: 0
+        }
+      ]
+    };
+
+    programDoc.value.data.adks[index] = {
+      ...inintAutoapplysetup,
+      ...programDoc.value.data.adks[index]
+    };
+
+    function populate() {
+      programDoc.value.data.adks[index].autoapply.push(inintAutoapplysetup.autoapply[0]);
+    }
+
+    function onSave() {
+      console.log(programDoc.value.data.adks[index].autoapply[0]);
+    }
+
     return {
-      requirements: 0,
-      resumeRequired: 0
+      // ...toRefs(setup),
+      reactive,
+      programDoc,
+      index,
+      populate
+      // ...createLoader(programDoc.value.update, 'Saved', 'Something went wrong, try again later')
     };
   }
-
-  // setup() {
-  //   // const setup = reactive({''});
-  //   const requirements = ref('0');
-  //   const resumeRequired = ref('0');
-
-  //   return {
-  //     // ...toRefs(setup),
-  //     reactive,
-  //     resumeRequired,
-  //     requirements
-  //   };
-  // }
 });
 </script>
 
