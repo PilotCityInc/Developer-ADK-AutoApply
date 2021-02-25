@@ -98,6 +98,8 @@
 import { defineComponent } from '@vue/composition-api';
 import Instruct from './ModuleInstruct.vue';
 import { group, required, deliverable, endEarly } from './const';
+import MongoDoc from '../types';
+
 // import gql from 'graphql-tag';
 
 export default defineComponent({
