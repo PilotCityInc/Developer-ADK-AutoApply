@@ -11,6 +11,7 @@
         <v-divider class="presets__divider"></v-divider>
         <div class="presets__section-title">Defaults</div>
 
+<<<<<<< HEAD
         <validation-provider v-slot="{ errors }" slim rules="required">
           <v-select
             v-model="groupActivity"
@@ -21,6 +22,20 @@
             outlined
           ></v-select>
         </validation-provider>
+=======
+      <v-select
+        disabled
+        :items="group"
+        label="What activity group does this belong to?"
+        outlined
+      ></v-select>
+      <v-select
+        disabled
+        :items="required"
+        label="Is this activity required for participants to complete?"
+        outlined
+      ></v-select>
+>>>>>>> upstream/master
 
         <validation-provider v-slot="{ errors }" slim rules="required">
           <v-select
@@ -37,6 +52,7 @@
         label="Lock activity group and placement order?"
         outlined
       ></v-select> -->
+<<<<<<< HEAD
         <validation-provider v-slot="{ errors }" slim rules="required">
           <v-select
             v-model="deliverableActivity"
@@ -48,10 +64,15 @@
           ></v-select>
         </validation-provider>
         <!-- <v-select
+=======
+      <v-select disabled :items="deliverable" label="Is this a deliverable?" outlined></v-select>
+      <!-- <v-select
+>>>>>>> upstream/master
         :items="accessibility"
         label="Make this activity accessible to participants anytime?"
         outlined
       ></v-select> -->
+<<<<<<< HEAD
         <validation-provider v-slot="{ errors }" slim rules="required">
           <v-select
             v-model="endEarlyActivity"
@@ -64,6 +85,16 @@
         </validation-provider>
         <!-- POST-ACTIVITY REFLECTION -->
         <!-- <v-text-field
+=======
+      <v-select
+        disabled
+        :items="endEarly"
+        label="Allow participants to end program early after completion of this activity?"
+        outlined
+      ></v-select>
+      <!-- POST-ACTIVITY REFLECTION -->
+      <!-- <v-text-field
+>>>>>>> upstream/master
         label="Post-Activity Reflection"
         placeholder="Now that you know the scope of the project, provide a summary of your interpretation."
         outlined
@@ -85,6 +116,7 @@
           <span>Required activities cannot be deleted</span>
         </v-tooltip>
       </div> -->
+<<<<<<< HEAD
         <!-- Delete break when the two delete buttons above and below have been integrated as one solution -->
         <br />
         <!-- If activity is optional, show button below -->
@@ -92,6 +124,14 @@
       </div>
     </v-container>
   </ValidationObserver>
+=======
+      <!-- Delete break when the two delete buttons above and below have been integrated as one solution -->
+      <br />
+      <!-- If activity is optional, show button below -->
+      <div><v-btn color="red" disabled depressed>Delete Activity</v-btn></div>
+    </div>
+  </v-container>
+>>>>>>> upstream/master
 </template>
 
 <script lang="ts">
