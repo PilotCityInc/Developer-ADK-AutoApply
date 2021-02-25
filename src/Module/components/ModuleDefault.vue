@@ -42,7 +42,7 @@
       stream
     />
     <div>
-      <Table class="module-default__table-view"></Table>
+      <Table v-model="programDoc" class="module-default__table-view"></Table>
     </div>
     <div class="module-edit__container">
       <div class="module-default__buttons">
@@ -61,29 +61,49 @@
 </template>
 
 <script lang="ts">
-import { ref } from '@vue/composition-api';
+import { defineComponent, ref, computed, PropType } from '@vue/composition-api';
 import Instruct from './ModuleInstruct.vue';
 import Table from './TableView.vue';
+import MongoDoc from '../types';
 
-export default {
+export default defineComponent({
   name: 'ModuleDefault',
   components: {
     Instruct,
     Table
   },
-  apollo: {},
-  data() {
+  props: {
+    value: {
+      required: true,
+      type: Object as PropType<MongoDoc>
+    }
+  },
+  setup(props, ctx) {
+    const programDoc = computed({
+      get: () => props.value,
+      set: newVal => {
+        ctx.emit('input', newVal);
+      }
+    });
+
+    const index = programDoc.value.data.adks.findIndex(function findautoapplyobj(obj) {
+      return obj.name === 'autoapply';
+    });
+
     const setupInstructions = ref({
       description: '',
       instructions: ['', '', '']
     });
     const showInstructions = ref(true);
+
     return {
       setupInstructions,
-      showInstructions
+      showInstructions,
+      programDoc,
+      index
     };
   }
-};
+});
 </script>
 
 <style lang="scss">

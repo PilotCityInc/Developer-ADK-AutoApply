@@ -13,7 +13,7 @@
 
         <validation-provider v-slot="{ errors }" slim rules="required">
           <v-select
-            v-model="groupActivity"
+            v-model="programDoc.data.adks[index].defaultActivity.groupActivity"
             :error-messages="errors"
             :items="group"
             disabled
@@ -24,7 +24,7 @@
 
         <validation-provider v-slot="{ errors }" slim rules="required">
           <v-select
-            v-model="requiredActivity"
+            v-model="programDoc.data.adks[index].defaultActivity.requiredActivity"
             :error-messages="errors"
             :items="required"
             disabled
@@ -39,7 +39,7 @@
       ></v-select> -->
         <validation-provider v-slot="{ errors }" slim rules="required">
           <v-select
-            v-model="deliverableActivity"
+            v-model="programDoc.data.adks[index].defaultActivity.deliverableActivity"
             :error-messages="errors"
             :items="deliverable"
             label="Is this a deliverable?"
@@ -54,7 +54,7 @@
       ></v-select> -->
         <validation-provider v-slot="{ errors }" slim rules="required">
           <v-select
-            v-model="endEarlyActivity"
+            v-model="programDoc.data.adks[index].defaultActivity.endEarlyActivity"
             :error-messages="errors"
             :items="endEarly"
             label="Allow participants to end program early after completion of this activity?"
@@ -85,16 +85,17 @@
           <span>Required activities cannot be deleted</span>
         </v-tooltip>
       </div> -->
-      <!-- Delete break when the two delete buttons above and below have been integrated as one solution -->
-      <br />
-      <!-- If activity is optional, show button below -->
-      <div><v-btn color="red" disabled depressed>Delete Activity</v-btn></div>
-    </div>
-  </v-container>
+        <!-- Delete break when the two delete buttons above and below have been integrated as one solution -->
+        <br />
+        <!-- If activity is optional, show button below -->
+        <div><v-btn color="red" disabled depressed>Delete Activity</v-btn></div>
+      </div>
+    </v-container>
+  </ValidationObserver>
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent, ref, reactive, toRefs, PropType, computed } from '@vue/composition-api';
 import Instruct from './ModuleInstruct.vue';
 import { group, required, deliverable, endEarly } from './const';
 import MongoDoc from '../types';
@@ -106,47 +107,56 @@ export default defineComponent({
   components: {
     Instruct
   },
-  data() {
-    return {
+  props: {
+    value: {
+      required: true,
+      type: Object as PropType<MongoDoc>
+    }
+  },
+  setup(props, ctx) {
+    const programDoc = computed({
+      get: () => props.value,
+      set: newVal => {
+        ctx.emit('input', newVal);
+      }
+    });
+
+    const index = programDoc.value.data.adks.findIndex(function findautoapplyobj(obj) {
+      return obj.name === 'autoapply';
+    });
+
+    const presets = reactive({
       group,
       required,
       deliverable,
-      endEarly,
-      groupActivity: 'Screening',
-      requiredActivity: 'Yes',
-      deliverableActivity: 'No',
-      endEarlyActivity: 'Yes',
-      setupInstructions: {
-        description: '',
-        instructions: ['', '', '']
+      endEarly
+    });
+    const initAutoapplyPresets = {
+      defaultActivity: {
+        groupActivity: 'Screening',
+        requiredActivity: 'Yes',
+        deliverableActivity: 'No',
+        endEarlyActivity: 'Yes',
+        required: false
       }
     };
+
+    programDoc.value.data.adks[index] = {
+      ...initAutoapplyPresets,
+      ...programDoc.value.data.adks[index]
+    };
+
+    const setupInstructions = ref({
+      description: '',
+      instructions: ['', '', '']
+    });
+    return {
+      ...toRefs(presets),
+      setupInstructions,
+      programDoc,
+      index
+    };
   }
-  // setup() {
-  //   const presets = reactive({
-  //     group,
-  //     required,
-  //     deliverable,
-  //     endEarly
-  //   });
-
-  //   const defaultActivity = reactive({
-  //     groupActivity: 'Screening',
-  //     requiredActivity: 'Yes',
-  //     deliverableActivity: 'No',
-  //     endEarlyActivity: 'Yes'
-  //   });
-
-  //   const setupInstructions = ref({
-  //     description: '',
-  //     instructions: ['', '', '']
-  //   });
-  //   return {
-  //     ...toRefs(presets),
-  //     setupInstructions,
-  //     ...toRefs(defaultActivity)
-  //   };
-  // }
 });
 </script>
 
