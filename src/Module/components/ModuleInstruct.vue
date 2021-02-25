@@ -1,9 +1,5 @@
 <template>
-<<<<<<< HEAD
-  <ValidationObserver v-slot="{ invalid }" slim>
-=======
   <ValidationObserver v-slot="{}" slim>
->>>>>>> upstream/master
     <!--  TODO: make the inputs into actual components -->
     <v-container class="module-instruct">
       <div class="module-instruct__container">
@@ -17,15 +13,11 @@
             row-height="3"
             rows="3"
             outlined
-<<<<<<< HEAD
-            class="font-weight-black text-body-1"
-=======
             class="font-weight-bold text-body-1"
             hide-details
             dense
             auto-grow
             disabled
->>>>>>> upstream/master
           ></v-textarea>
         </div>
         <div class="module-instruct__instructions">
@@ -33,51 +25,20 @@
             <span>Instructions</span>
           </div>
           <div
-<<<<<<< HEAD
-            v-for="(i, index) in demoInstructions"
-=======
             v-for="(i, index) in boilerInstructions"
->>>>>>> upstream/master
             :key="index"
             class="module-instruct__instructions-item"
           >
             <v-avatar
               size="35"
-<<<<<<< HEAD
-              class="module-instruct__instructions-av font-weight-black text-caption d-none d-sm-flex"
-=======
               color="white"
               class="module-instruct__instructions-av font-weight-bold text-caption d-none d-sm-flex"
->>>>>>> upstream/master
             >
               {{ index + 1 }}
             </v-avatar>
 
             <validation-provider v-slot="{ errors }" slim rules="required">
               <v-textarea
-<<<<<<< HEAD
-                v-model="demoInstructions[index]"
-                row-height="3"
-                rows="1"
-                outlined
-                :error-messages="errors"
-                class="font-weight-black text-body-1"
-              ></v-textarea>
-            </validation-provider>
-          </div>
-
-          <div>
-            <v-btn
-              class="module-instruct__instructions-add font-weight-black text-body-1"
-              depressed
-              :disabled="invalid"
-              :ripple="false"
-              @click="populate()"
-            >
-              <v-icon class="module-instruct__instructions-add-icon"> mdi-plus </v-icon>
-            </v-btn>
-          </div>
-=======
                 v-model="boilerInstructions[index]"
                 row-height="3"
                 rows="1"
@@ -104,7 +65,6 @@
               <v-icon class="module-instruct__instructions-add-icon"> mdi-plus </v-icon>
             </v-btn>
           </div> -->
->>>>>>> upstream/master
         </div>
       </div>
     </v-container>
@@ -112,22 +72,6 @@
 </template>
 
 <script lang="ts">
-<<<<<<< HEAD
-import { defineComponent } from '@vue/composition-api';
-
-export default defineComponent({
-  name: 'ModuleInstruct',
-  data() {
-    return {
-      demoInstructions: [''],
-      goal: ''
-    };
-  },
-  methods: {
-    populate() {
-      this.demoInstructions.push('');
-    }
-=======
 import { ref, computed, defineComponent, PropType } from '@vue/composition-api';
 
 export default defineComponent({
@@ -153,7 +97,6 @@ export default defineComponent({
     // }
 
     return { boilerInstructions, goal };
->>>>>>> upstream/master
   }
   // setup() {
   //   const demoInstructions = ref(['']);

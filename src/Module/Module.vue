@@ -200,7 +200,6 @@
               <v-row justify="space-between">
                 <v-col cols="7" v-text="event.text"></v-col>
                 <v-col class="text-right" cols="3" v-text="event.time"></v-col>
-<<<<<<< HEAD
                 <v-col class="text-right" cols="2"> -->
     <!-- POSTER, STUDENT PARTICIPANT OR ORGANIZER CAN DELETE POSTS -->
     <!-- <v-btn small class="module__trash" icon
@@ -210,15 +209,6 @@
                   > -->
     <!-- ANYONE CAN FLAG COMMENTS -->
     <!-- <v-btn small class="module__trash" icon
-=======
-                <v-col class="text-right" cols="2">
-                  <v-btn small class="module__trash" icon
-                    ><v-icon small color="grey" class="module__trash"
-                      >mdi-trash-can-outline</v-icon
-                    ></v-btn
-                  >
-                  <v-btn small class="module__trash" icon
->>>>>>> upstream/master
                     ><v-icon small color="grey" class="module__trash">mdi-flag</v-icon></v-btn
                   ></v-col
                 >
@@ -226,16 +216,8 @@
 
               <v-btn class="" icon><v-icon color="grey lighten-2">mdi-thumb-up</v-icon></v-btn>
 
-<<<<<<< HEAD
-              <v-btn class="" icon><v-icon color="grey lighten-2">mdi-thumb-down</v-icon></v-btn> -->
-    <!--
-              <v-btn x-small outlined depressed class="mx-0">Reply</v-btn>
-              <v-btn small class="" icon><v-icon color="grey lighten-2">mdi-flag</v-icon></v-btn> -->
-    <!-- </v-timeline-item>
-=======
               <v-btn class="" icon><v-icon color="grey lighten-2">mdi-thumb-down</v-icon></v-btn>
             </v-timeline-item>
->>>>>>> upstream/master
           </v-slide-x-transition>
         </v-timeline>
       </v-container>
