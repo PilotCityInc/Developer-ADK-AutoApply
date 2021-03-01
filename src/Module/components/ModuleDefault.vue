@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div class="pa-0">
     <div class="module-default__instructions">
       <v-expansion-panels v-model="showInstructions" class="module-default__instructions" flat>
         <v-expansion-panel>
@@ -57,7 +57,7 @@
       <!-- DESIGN YOUR ACTIVITY HERE / COMMENT OUT WHEN YOU'VE STARTED DESIGNING
       <div class="module-default__none">Design your activity here</div> -->
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script lang="ts">
@@ -124,7 +124,7 @@ export default {
 
   &__collapse-divider {
     margin-top: 15px;
-    margin-bottom: 75px;
+    // margin-bottom: 75px;
     margin-right: none;
     margin-left: none;
     padding-right: none;
