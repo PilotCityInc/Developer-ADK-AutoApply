@@ -85,13 +85,11 @@ export default defineComponent({
     //   }
     // });
     const boilerInstructions = ref([
-      'Click resource link',
-      'Review, complete or understand resource contents',
-      'Mark completed until all finished'
+      'Review completed activities and deliverables',
+      'Automatically apply for internship or end early to opt-out of opportunities',
+      'Await an offer for interview'
     ]);
-    const goal = ref([
-      'To research employer-provided resources, links, examples, possibilities & direction for projects'
-    ]);
+    const goal = ref(['To automatically apply for internships and work experience programs']);
     // function populate() {
     //   boilerInstructions.value.push('');
     // }
