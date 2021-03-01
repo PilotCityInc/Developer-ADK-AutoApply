@@ -20,7 +20,7 @@
       </template>
 
       <template v-slot:item.status>
-        <v-icon color="green" dark>mdi-checkbox-marked-circle</v-icon>
+        <v-icon color="green" dark>mdi-lock-open-check</v-icon>
 
         <!-- <v-icon color="orange" dark>mdi-alert-circle</v-icon> -->
         <!-- <v-icon color="grey" dark>mdi-close-circle</v-icon> -->

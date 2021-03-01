@@ -44,19 +44,84 @@
     <div>
       <Table v-model="programDoc" class="module-default__table-view"></Table>
     </div>
-    <div class="module-edit__container">
-      <div class="module-default__buttons">
-        <v-btn x-large depressed :ripple="false" outlined class="module-default__auto"
-          >Opt-out</v-btn
-        >
-        <v-btn x-large depressed :ripple="false" color="#6EBA7F" dark class="module-default__opt"
-          >Auto-apply</v-btn
-        >
-      </div>
-      <!-- ENTER CONTENT HERE -->
-      <!-- DESIGN YOUR ACTIVITY HERE / COMMENT OUT WHEN YOU'VE STARTED DESIGNING
-      <div class="module-default__none">Design your activity here</div> -->
+    <div class="d-flex justify-center flex-row mt-12">
+      <v-dialog v-model="endEarly" persistent max-width="400px">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            x-large
+            color="grey"
+            rounded
+            depressed
+            :ripple="false"
+            outlined
+            class="module-default__auto"
+            v-on="on"
+            >End Early</v-btn
+          >
+        </template>
+        <v-card>
+          <v-card-title class="d-flex flex-column">
+            <!-- <div class="d-flex justify-center">
+              <v-tooltip top color="black">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn class="" v-bind="attrs" icon v-on="on"><v-icon>mdi-refresh</v-icon></v-btn>
+                </template>
+                <span>Resend Code</span>
+              </v-tooltip>
+            </div> -->
+
+            <div class="overline font-weight-bold">Are you sure you want to end early?</div>
+          </v-card-title>
+
+          <v-divider></v-divider>
+
+          <v-container class="d-flex justify-center">
+            <!-- <div class="d-flex flex-column justify-center"> -->
+            <div class="d-flex flex-row justify-center mt-3 mb-5">
+              <v-btn
+                class="ma-2"
+                color="red"
+                dark
+                x-large
+                rounded
+                depressed
+                @click="endEarly = false"
+                >Cancel</v-btn
+              >
+
+              <v-btn class="ma-2" x-large dark color="green" rounded depressed>End Early</v-btn>
+            </div>
+
+            <!-- <div class="d-flex justify-center mt-4 mb-4">
+                <v-btn icon @click="endEarly = false"><v-icon>mdi-close</v-icon></v-btn>
+              </div> -->
+            <!-- </div> -->
+          </v-container>
+        </v-card>
+      </v-dialog>
+
+      <v-tooltip top color="black">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            x-large
+            rounded
+            depressed
+            :ripple="false"
+            color="#6EBA7F"
+            dark
+            class="module-default__opt"
+            v-on="on"
+            ><v-icon left>mdi-check-all</v-icon>Auto-apply</v-btn
+          >
+        </template>
+        <span>Automatically apply for an internship</span>
+      </v-tooltip>
     </div>
+    <!-- ENTER CONTENT HERE -->
+    <!-- DESIGN YOUR ACTIVITY HERE / COMMENT OUT WHEN YOU'VE STARTED DESIGNING
+      <div class="module-default__none">Design your activity here</div> -->
   </div>
 </template>
 
@@ -100,7 +165,8 @@ export default defineComponent({
       setupInstructions,
       showInstructions,
       programDoc,
-      index
+      index,
+      endEarly: false
     };
   }
 });

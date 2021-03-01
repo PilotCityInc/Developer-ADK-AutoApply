@@ -29,19 +29,19 @@ export const items = [
   {
     // need to ask
     index: '1',
-    activity: 'Join',
+    activity: 'Start Program',
     completion: '100%',
     updated: 'Today at 7:30pm',
-    type: 'Project',
-    group: 'Research'
+    type: 'Activity',
+    group: 'Onboard'
   },
   {
     index: '2',
     activity: 'Request for Projects',
     completion: '100%',
     updated: 'Yesterday at 12:30pm',
-    type: 'None',
-    group: 'Research'
+    type: 'Activity',
+    group: 'Onboard'
   },
   {
     // need to ask
@@ -49,23 +49,23 @@ export const items = [
     activity: 'Team',
     completion: '100%',
     updated: 'Jul 12 at 3:30pm',
-    type: 'Project',
-    group: 'Research'
+    type: 'Activity',
+    group: 'Onboard'
   },
   {
     index: '4',
     activity: 'Discord',
     completion: '100%',
     updated: 'Oct 10 at 7:30pm',
-    type: 'Project',
-    group: 'Research'
+    type: 'Activity',
+    group: 'Onboard'
   },
   {
     index: '5',
     activity: 'Train',
     completion: '100%',
     updated: 'Oct 15 at 3:30pm',
-    type: 'Project',
+    type: 'Activity',
     group: 'Research'
   },
   {
@@ -73,7 +73,7 @@ export const items = [
     activity: 'Research',
     completion: '100%',
     updated: 'Oct 16 at 3:30pm',
-    type: 'Project',
+    type: 'Activity',
     group: 'Research'
   },
   {
@@ -81,7 +81,7 @@ export const items = [
     activity: 'Practice',
     completion: '0%',
     updated: 'Oct 2 at 7:30pm',
-    type: 'Project',
+    type: 'Deliverable',
     group: 'Research'
   },
   {
@@ -89,88 +89,40 @@ export const items = [
     activity: 'Ideate',
     completion: '0%',
     updated: 'Oct 23 at 9:30pm',
-    type: 'Project',
-    group: 'Research'
+    type: 'Deliverable',
+    group: 'Design'
   },
   {
     index: '9',
-    activity: 'Pitches',
+    activity: 'Pitch',
     completion: '0%',
     updated: 'Oct 5 at 8:30pm',
-    type: 'Project',
+    type: 'Deliverable',
     group: 'Design'
   },
   {
     index: '10',
-    activity: 'Interact',
+    activity: 'Forum',
     completion: '0%',
     updated: 'Oct 4 at 7:30pm',
-    type: 'Project',
+    type: 'Activity',
     group: 'Design'
   },
   {
     index: '11',
-    activity: 'Design & Prototype',
+    activity: 'Make',
     completion: '0%',
     updated: 'Oct 23 at 7:30pm',
-    type: 'Project',
+    type: 'Deliverable',
     group: 'Prototype'
   },
   {
     index: '12',
-    activity: 'Prospect',
-    completion: '0%',
-    updated: 'Oct 9 at 8:30pm',
-    type: 'Project',
-    group: 'Prototype'
-  },
-  {
-    index: '13',
     activity: 'Demonstration',
     completion: '0%',
     updated: 'Oct 31 at 4:30pm',
-    type: 'Project',
+    type: 'Deliverable',
     group: 'Prototype'
-  },
-  {
-    index: '14',
-    activity: 'Present',
-    completion: '0%',
-    updated: 'Oct 20 at 3:30pm',
-    type: 'Project',
-    group: 'Prototype'
-  },
-  {
-    index: '15',
-    activity: 'Auto-Apply',
-    completion: '0%',
-    updated: 'Oct 40 at 2:30pm',
-    type: 'Internship',
-    group: 'Screeing'
-  },
-  {
-    index: '16',
-    activity: 'Interview',
-    completion: '0%',
-    updated: 'Oct 20 at 1:30pm',
-    type: 'Internship',
-    group: 'Screeing'
-  },
-  {
-    index: '17',
-    activity: 'Offer',
-    completion: '0%',
-    updated: 'Oct 11 at 8:30pm',
-    type: 'Internship',
-    group: 'Screeing'
-  },
-  {
-    index: '18',
-    activity: 'Results',
-    completion: '0%',
-    updated: 'Oct 16 at 8:30pm',
-    type: 'Internship',
-    group: 'Screeing'
   }
 ];
 
