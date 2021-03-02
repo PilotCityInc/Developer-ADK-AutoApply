@@ -32,7 +32,7 @@ export const items = [
     activity: 'Join',
     completion: '100%',
     updated: 'Today at 7:30pm',
-    type: 'Project',
+    type: 'Activities',
     group: 'Research'
   },
   {
@@ -40,7 +40,7 @@ export const items = [
     activity: 'Request for Projects',
     completion: '100%',
     updated: 'Yesterday at 12:30pm',
-    type: 'None',
+    type: 'Activities',
     group: 'Research'
   },
   {
@@ -49,7 +49,7 @@ export const items = [
     activity: 'Team',
     completion: '100%',
     updated: 'Jul 12 at 3:30pm',
-    type: 'Project',
+    type: 'Activities',
     group: 'Research'
   },
   {
@@ -57,7 +57,7 @@ export const items = [
     activity: 'Discord',
     completion: '100%',
     updated: 'Oct 10 at 7:30pm',
-    type: 'Project',
+    type: 'Activities',
     group: 'Research'
   },
   {
@@ -65,7 +65,7 @@ export const items = [
     activity: 'Train',
     completion: '100%',
     updated: 'Oct 15 at 3:30pm',
-    type: 'Project',
+    type: 'Activities',
     group: 'Research'
   },
   {
@@ -73,7 +73,7 @@ export const items = [
     activity: 'Research',
     completion: '100%',
     updated: 'Oct 16 at 3:30pm',
-    type: 'Project',
+    type: 'Activities',
     group: 'Research'
   },
   {
@@ -81,7 +81,7 @@ export const items = [
     activity: 'Practice',
     completion: '0%',
     updated: 'Oct 2 at 7:30pm',
-    type: 'Project',
+    type: 'Activities',
     group: 'Research'
   },
   {
@@ -89,7 +89,7 @@ export const items = [
     activity: 'Ideate',
     completion: '0%',
     updated: 'Oct 23 at 9:30pm',
-    type: 'Project',
+    type: 'Deliverables',
     group: 'Research'
   },
   {
@@ -97,7 +97,7 @@ export const items = [
     activity: 'Pitches',
     completion: '0%',
     updated: 'Oct 5 at 8:30pm',
-    type: 'Project',
+    type: 'Deliverables',
     group: 'Design'
   },
   {
@@ -105,7 +105,7 @@ export const items = [
     activity: 'Interact',
     completion: '0%',
     updated: 'Oct 4 at 7:30pm',
-    type: 'Project',
+    type: 'Activities',
     group: 'Design'
   },
   {
@@ -113,7 +113,7 @@ export const items = [
     activity: 'Design & Prototype',
     completion: '0%',
     updated: 'Oct 23 at 7:30pm',
-    type: 'Project',
+    type: 'Deliverables',
     group: 'Prototype'
   },
   {
@@ -121,7 +121,7 @@ export const items = [
     activity: 'Prospect',
     completion: '0%',
     updated: 'Oct 9 at 8:30pm',
-    type: 'Project',
+    type: 'Activities',
     group: 'Prototype'
   },
   {
@@ -129,7 +129,7 @@ export const items = [
     activity: 'Demonstration',
     completion: '0%',
     updated: 'Oct 31 at 4:30pm',
-    type: 'Project',
+    type: 'Deliverables',
     group: 'Prototype'
   },
   {
@@ -137,7 +137,7 @@ export const items = [
     activity: 'Present',
     completion: '0%',
     updated: 'Oct 20 at 3:30pm',
-    type: 'Project',
+    type: 'Deliverables',
     group: 'Prototype'
   },
   {
@@ -145,7 +145,7 @@ export const items = [
     activity: 'Auto-Apply',
     completion: '0%',
     updated: 'Oct 40 at 2:30pm',
-    type: 'Internship',
+    type: 'Activities',
     group: 'Screeing'
   },
   {
@@ -153,7 +153,7 @@ export const items = [
     activity: 'Interview',
     completion: '0%',
     updated: 'Oct 20 at 1:30pm',
-    type: 'Internship',
+    type: 'Activities',
     group: 'Screeing'
   },
   {
@@ -161,7 +161,7 @@ export const items = [
     activity: 'Offer',
     completion: '0%',
     updated: 'Oct 11 at 8:30pm',
-    type: 'Internship',
+    type: 'Activities',
     group: 'Screeing'
   },
   {
@@ -169,7 +169,7 @@ export const items = [
     activity: 'Results',
     completion: '0%',
     updated: 'Oct 16 at 8:30pm',
-    type: 'Internship',
+    type: 'Activities',
     group: 'Screeing'
   }
 ];
