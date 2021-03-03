@@ -11,8 +11,10 @@
         <v-btn depressed color="#E0E0E0" :ripple="false">Edit</v-btn>
       </template>
 
-      <template v-slot:item.click>
-        <v-btn outlined depressed x-small :ripple="false">Update</v-btn>
+      <template v-slot:item.click="{ item }">
+        <v-btn outlined depressed x-small :ripple="false" @click="pageSelection(item.index)"
+          >Update</v-btn
+        >
       </template>
 
       <template v-slot:item.progress>
@@ -40,13 +42,16 @@
 </template>
 
 <script lang="ts">
-import { ref } from '@vue/composition-api';
+import { ref, defineComponent } from '@vue/composition-api';
 import { items, HEADER } from './const';
 
-export default {
+export default defineComponent({
   name: 'TableView',
   setup() {
-    return { header: ref(HEADER), items };
+    function pageSelection(index: any) {
+      console.log(index);
+    }
+    return { header: ref(HEADER), items, pageSelection };
   }
-};
+});
 </script>

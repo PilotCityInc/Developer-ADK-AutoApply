@@ -103,7 +103,7 @@
         </div>
         <div class="module__page">
           <!-- <keep-alive> -->
-          <component :is="getComponent" v-model="programDoc" />
+          <component :is="getComponent" v-model="programDoc" v-bind.sync="currentPageTable" />
           <!-- </keep-alive> -->
         </div>
       </div>
@@ -275,7 +275,8 @@ export default defineComponent({
     value: {
       required: true,
       type: Object as PropType<MongoDoc>
-    }
+    },
+    currentPageTable: Number
   },
   setup(props, ctx) {
     //
@@ -288,6 +289,8 @@ export default defineComponent({
         ctx.emit('input', newVal);
       }
     });
+
+    const PageValue = props.currentPageTable;
 
     const index = programDoc.value.data.adks.findIndex(function findautoapplyobj(obj) {
       return obj.name === 'autoapply';
@@ -362,7 +365,8 @@ export default defineComponent({
       ...toRefs(timelineData),
       timeline,
       comment,
-      programDoc
+      programDoc,
+      PageValue
     };
   }
 });
