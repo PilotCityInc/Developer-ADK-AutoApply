@@ -1,113 +1,120 @@
 <template>
-  <div class="pa-0">
-    <div class="module-default__instructions">
-      <v-expansion-panels v-model="showInstructions" class="module-default__instructions" flat>
-        <v-expansion-panel>
-          <v-expansion-panel-header
-            v-show="showInstructions"
-            hide-actions
-            class="pa-0"
-            @click="showInstructions = true"
-          >
-            <template v-slot="{ open }">
-              <v-scroll-y-transition hide-on-leave>
-                <div v-if="!open" class="d-flex flex-column justify-center">
-                  <v-icon color="grey lighten-2" class="d-flex justify-center">
-                    mdi-chevron-down
-                  </v-icon>
-                  <div color="grey lighten-2" class="module-default__collapse-title">
-                    INSTRUCTIONS
+  <ValidationObserver v-slot="{}" slim>
+    <div class="pa-0">
+      <div class="module-default__instructions">
+        <v-expansion-panels v-model="showInstructions" class="module-default__instructions" flat>
+          <v-expansion-panel>
+            <v-expansion-panel-header
+              v-show="showInstructions"
+              hide-actions
+              class="pa-0"
+              @click="showInstructions = true"
+            >
+              <template v-slot="{ open }">
+                <v-scroll-y-transition hide-on-leave>
+                  <div v-if="!open" class="d-flex flex-column justify-center">
+                    <v-icon color="grey lighten-2" class="d-flex justify-center">
+                      mdi-chevron-down
+                    </v-icon>
+                    <div color="grey lighten-2" class="module-default__collapse-title">
+                      INSTRUCTIONS
+                    </div>
                   </div>
-                </div>
-              </v-scroll-y-transition>
-            </template>
-          </v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <Instruct readonly />
-            <div @click="showInstructions = true">
-              <div class="module-default__collapse-title">CLOSE</div>
-              <!-- <div class="hr"/> OPTIONAL -->
-              <v-icon color="grey lighten-2" class="d-flex justify-center"> mdi-chevron-up </v-icon>
-            </div>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-    </div>
-    <v-progress-linear
-      class="module-default__collapse-divider"
-      color="#dedede"
-      height="2"
-      value="100"
-      buffer-value="100"
-      stream
-    />
-    <div>
-      <!-- <div class="module-default__overall-statement">
+                </v-scroll-y-transition>
+              </template>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <Instruct readonly />
+              <div @click="showInstructions = true">
+                <div class="module-default__collapse-title">CLOSE</div>
+                <!-- <div class="hr"/> OPTIONAL -->
+                <v-icon color="grey lighten-2" class="d-flex justify-center">
+                  mdi-chevron-up
+                </v-icon>
+              </div>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </div>
+      <v-progress-linear
+        class="module-default__collapse-divider"
+        color="#dedede"
+        height="2"
+        value="100"
+        buffer-value="100"
+        stream
+      />
+      <div>
+        <!-- <div class="module-default__overall-statement">
         <div class="module-default__secondary-statement">
           <span class="module-default__main-statement">Congrats!</span>
           You’ve won a position with your employer. Please review and agree to the following terms.
           Accept or decline thereafter.
         </div>
       </div> -->
-      <div class="justify-center d-flex mt-12">
-        <v-icon color="#f79961" x-large>mdi-airballoon</v-icon>
+        <div class="justify-center d-flex mt-12">
+          <v-icon color="#f79961" x-large>mdi-airballoon</v-icon>
+        </div>
+        <div class="module-default__statement1 headline font-weight-bold mt-6 justify-center">
+          You have automatically applied! <br />
+        </div>
+        <div
+          class="module-default__statement2 headline font-weight-medium justify-center mt-6 ml-12 mr-12"
+        >
+          Next step is to await an interview offer. Meanwhile, feel free to review your activities
+          below
+        </div>
+        <div class="d-flex justify-center mb-12"></div>
+
+        <Table
+          v-model="programDoc"
+          v-bind.sync="currentPageTable"
+          class="module-default__table-view"
+        ></Table>
       </div>
-      <div class="module-default__statement1 headline font-weight-bold mt-6 justify-center">
-        You have automatically applied! <br />
-      </div>
-      <div
-        class="module-default__statement2 headline font-weight-medium justify-center mt-6 ml-12 mr-12"
-      >
-        Next step is to await an interview offer. Meanwhile, feel free to review your activities
-        below
-      </div>
-      <div class="d-flex justify-center mb-12"></div>
+      <div class="d-flex justify-center flex-row mt-12">
+        <v-dialog v-model="endEarly" persistent max-width="400px">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-bind="attrs"
+              x-large
+              color="grey"
+              rounded
+              depressed
+              :ripple="false"
+              outlined
+              class="ml-3 mr-3"
+              v-on="on"
+              >End Early</v-btn
+            >
+          </template>
+          <v-card>
+            <v-card-title class="d-flex flex-column">
+              <div class="overline font-weight-bold">Are you sure you want to end early?</div>
+            </v-card-title>
 
-      <Table v-model="programDoc" class="module-default__table-view"></Table>
-    </div>
-    <div class="d-flex justify-center flex-row mt-12">
-      <v-dialog v-model="endEarly" persistent max-width="400px">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            v-bind="attrs"
-            x-large
-            color="grey"
-            rounded
-            depressed
-            :ripple="false"
-            outlined
-            class="ml-3 mr-3"
-            v-on="on"
-            >End Early</v-btn
-          >
-        </template>
-        <v-card>
-          <v-card-title class="d-flex flex-column">
-            <div class="overline font-weight-bold">Are you sure you want to end early?</div>
-          </v-card-title>
+            <v-divider></v-divider>
 
-          <v-divider></v-divider>
+            <v-container class="d-flex justify-center">
+              <div class="d-flex flex-row justify-center mt-3 mb-5">
+                <v-btn
+                  class="ma-2"
+                  color="red"
+                  dark
+                  x-large
+                  rounded
+                  depressed
+                  @click="endEarly = false"
+                  >Cancel</v-btn
+                >
 
-          <v-container class="d-flex justify-center">
-            <div class="d-flex flex-row justify-center mt-3 mb-5">
-              <v-btn
-                class="ma-2"
-                color="red"
-                dark
-                x-large
-                rounded
-                depressed
-                @click="endEarly = false"
-                >Cancel</v-btn
-              >
+                <v-btn class="ma-2" x-large dark color="green" rounded depressed>End Early</v-btn>
+              </div>
+            </v-container>
+          </v-card>
+        </v-dialog>
 
-              <v-btn class="ma-2" x-large dark color="green" rounded depressed>End Early</v-btn>
-            </div>
-          </v-container>
-        </v-card>
-      </v-dialog>
-
-      <!-- <v-tooltip top color="black">
+        <!-- <v-tooltip top color="black">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             v-bind="attrs"
@@ -125,33 +132,33 @@
         <span>Automatically apply for an internship</span>
       </v-tooltip> -->
 
-      <v-dialog v-model="autoApply" persistent max-width="525px">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            v-bind="attrs"
-            x-large
-            rounded
-            depressed
-            :ripple="false"
-            color="#6EBA7F"
-            dark
-            class="ml-3 mr-3"
-            v-on="on"
-            ><v-icon left>mdi-check-all</v-icon>Auto-apply</v-btn
-          >
-        </template>
-        <v-card>
-          <v-card-title class="d-flex flex-column">
-            <v-icon class="mt-2 mb-2" color="green" x-large>mdi-check-all</v-icon>
-            <div class="d-flex headline font-weight-bold mt-2 mb-2">
-              Any additional Summer plans?
-            </div>
-          </v-card-title>
+        <v-dialog v-model="autoApply" persistent max-width="525px">
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-bind="attrs"
+              x-large
+              rounded
+              depressed
+              :ripple="false"
+              color="#6EBA7F"
+              dark
+              class="ml-3 mr-3"
+              v-on="on"
+              ><v-icon left>mdi-check-all</v-icon>Auto-apply</v-btn
+            >
+          </template>
+          <v-card>
+            <v-card-title class="d-flex flex-column">
+              <v-icon class="mt-2 mb-2" color="green" x-large>mdi-check-all</v-icon>
+              <div class="d-flex headline font-weight-bold mt-2 mb-2">
+                Any additional Summer plans?
+              </div>
+            </v-card-title>
 
-          <v-divider class="mb-6"></v-divider>
+            <v-divider class="mb-6"></v-divider>
 
-          <v-container class="d-flex flex-column justify-center">
-            <!-- <div class="d-flex h6 font-weight-bold justify-center">
+            <v-container class="d-flex flex-column justify-center">
+              <!-- <div class="d-flex h6 font-weight-bold justify-center">
               Would you prefer this program over traditional learning?
             </div>
             <v-rating class="d-flex justify-center"></v-rating>
@@ -186,85 +193,91 @@
             <v-switch inset class="d-flex ml-auto mr-auto justify-center"></v-switch>
 
             <br /> -->
-            <div class="d-flex flex-row justify-start ml-12">
-              <v-switch v-model="summerVacation" inset class=""></v-switch>
-              <div class="d-flex h6 font-weight-bold align-center">
-                Do you plan on going on Summer Vacation?
+              <div class="d-flex flex-row justify-start ml-12">
+                <v-switch v-model="summerVacation" inset class=""></v-switch>
+                <div class="d-flex h6 font-weight-bold align-center">
+                  Do you plan on going on Summer Vacation?
+                </div>
               </div>
-            </div>
-            <div v-if="summerVacation" class="d-flex justify-center ml-12 mr-12">
-              <!-- <v-text-field
+              <div v-if="summerVacation" class="d-flex justify-center ml-12 mr-12">
+                <!-- <v-text-field
                 outlined
                 rounded
                 label="When do you leave and come back?"
                 prepend-inner-icon="mdi-calendar"
               ></v-text-field> -->
 
-              <v-menu
-                ref="summerVacationMenu"
-                v-model="summerVacationMenu"
-                :close-on-content-click="false"
-                :return-value.sync="summerVacationDates"
-                transition="scale-transition"
-                offset-y
-                min-width="auto"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-combobox
-                    v-model="summerVacationDates"
-                    rounded
-                    outlined
-                    multiple
-                    chips
-                    small-chips
-                    label="Select all your vacation dates"
-                    prepend-inner-icon="mdi-calendar"
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"
-                  ></v-combobox>
-                </template>
-                <v-date-picker
-                  v-model="summerVacationDates"
-                  min="2021-06-21"
-                  max="2021-08-06"
-                  multiple
-                  no-title
-                  scrollable
+                <v-menu
+                  ref="summerVacationMenu"
+                  v-model="summerVacationMenu"
+                  :close-on-content-click="false"
+                  :return-value.sync="programDoc.data.adks[index].autoApply[0].vacationDates"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="auto"
                 >
-                  <v-spacer></v-spacer>
-                  <v-btn text color="primary" @click="summerVacationMenu = false"> Cancel </v-btn>
-                  <v-btn
-                    text
-                    color="primary"
-                    @click="$refs.summerVacationMenu.save(summerVacationDates)"
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-combobox
+                      v-model="programDoc.data.adks[index].autoApply[0].vacationDates"
+                      rounded
+                      outlined
+                      multiple
+                      chips
+                      small-chips
+                      label="Select all your vacation dates"
+                      prepend-inner-icon="mdi-calendar"
+                      readonly
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-combobox>
+                  </template>
+                  <v-date-picker
+                    v-model="programDoc.data.adks[index].autoApply[0].vacationDates"
+                    min="2021-06-21"
+                    max="2021-08-06"
+                    multiple
+                    no-title
+                    scrollable
                   >
-                    OK
-                  </v-btn>
-                </v-date-picker>
-              </v-menu>
-            </div>
-
-            <div class="d-flex flex-row justify-start ml-12">
-              <v-switch v-model="summerJob" inset class=""></v-switch>
-              <div class="d-flex h6 font-weight-bold align-center">
-                Do you plan on getting a Summer Job?
+                    <v-spacer></v-spacer>
+                    <v-btn text color="primary" @click="summerVacationMenu = false"> Cancel </v-btn>
+                    <v-btn
+                      text
+                      color="primary"
+                      @click="
+                        $refs.summerVacationMenu.save(
+                          programDoc.data.adks[index].autoApply[0].vacationDates
+                        )
+                      "
+                    >
+                      OK
+                    </v-btn>
+                  </v-date-picker>
+                </v-menu>
               </div>
-            </div>
-            <div v-if="summerJob" class="d-flex justify-center ml-12 mr-12">
-              <v-text-field
-                v-model="summerJobHours"
-                :error-messages="errors"
-                label="How many estimated hours per week?"
-                hint="Enter number of hours only"
-                persistent-hint
-                outlined
-                rounded
-                prepend-inner-icon="mdi-calendar-clock"
-              ></v-text-field>
-            </div>
 
-            <!-- <div class="d-flex flex-row justify-start ml-12">
+              <div class="d-flex flex-row justify-start ml-12">
+                <v-switch v-model="summerJob" inset class=""></v-switch>
+                <div class="d-flex h6 font-weight-bold align-center">
+                  Do you plan on getting a Summer Job?
+                </div>
+              </div>
+              <div v-if="summerJob" class="d-flex justify-center ml-12 mr-12">
+                <validation-provider v-slot="{ errors }" slim rules="numeric">
+                  <v-text-field
+                    v-model="programDoc.data.adks[index].autoApply[0].estimatedhours"
+                    :error-messages="errors"
+                    label="How many estimated hours per week?"
+                    hint="Enter number of hours only"
+                    persistent-hint
+                    outlined
+                    rounded
+                    prepend-inner-icon="mdi-calendar-clock"
+                  ></v-text-field>
+                </validation-provider>
+              </div>
+
+              <!-- <div class="d-flex flex-row justify-start ml-12">
               <v-switch v-model="summerCollege" inset class=""></v-switch>
               <div class="d-flex h6 font-weight-bold align-center">
                 Do you plan on taking Summer Classes or School? 
@@ -272,77 +285,82 @@
             </div>
             <div v-if="summerCollege" class="d-flex justify-center">hi</div> -->
 
-            <div class="d-flex flex-row justify-start ml-12">
-              <v-switch v-model="summerClasses" inset class=""></v-switch>
-              <div class="d-flex h6 font-weight-bold align-center">
-                Do you plan on having Summer Classes?
+              <div class="d-flex flex-row justify-start ml-12">
+                <v-switch v-model="summerClasses" inset class=""></v-switch>
+                <div class="d-flex h6 font-weight-bold align-center">
+                  Do you plan on having Summer Classes?
+                </div>
               </div>
-            </div>
-            <div v-if="summerClasses" class="d-flex justify-center flex-column ml-12 mr-12">
-              <!-- <v-text-field
+              <div v-if="summerClasses" class="d-flex justify-center flex-column ml-12 mr-12">
+                <!-- <v-text-field
                 outlined
                 rounded
                 label="When does it start and end?"
                 prepend-inner-icon="mdi-calendar"
               ></v-text-field> -->
 
-              <v-menu
-                ref="summerClassesMenu"
-                v-model="summerClassesMenu"
-                :close-on-content-click="false"
-                :return-value.sync="summerClassesDates"
-                transition="scale-transition"
-                offset-y
-                min-width="auto"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-combobox
-                    v-model="summerClassesDates"
-                    rounded
-                    outlined
-                    multiple
-                    chips
-                    small-chips
-                    label="Select all your class dates"
-                    prepend-inner-icon="mdi-calendar"
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"
-                  ></v-combobox>
-                </template>
-                <v-date-picker
-                  v-model="summerClassesDates"
-                  min="2021-06-21"
-                  max="2021-08-06"
-                  multiple
-                  no-title
-                  scrollable
+                <v-menu
+                  ref="summerClassesMenu"
+                  v-model="summerClassesMenu"
+                  :close-on-content-click="false"
+                  :return-value.sync="programDoc.data.adks[index].autoApply[0].summerDates"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="auto"
                 >
-                  <v-spacer></v-spacer>
-                  <v-btn text color="primary" @click="summerClassesMenu = false"> Cancel </v-btn>
-                  <v-btn
-                    text
-                    color="primary"
-                    @click="$refs.summerClassesMenu.save(summerClassesDates)"
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-combobox
+                      v-model="programDoc.data.adks[index].autoApply[0].summerDates"
+                      rounded
+                      outlined
+                      multiple
+                      chips
+                      small-chips
+                      label="Select all your class dates"
+                      prepend-inner-icon="mdi-calendar"
+                      readonly
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-combobox>
+                  </template>
+                  <v-date-picker
+                    v-model="programDoc.data.adks[index].autoApply[0].summerDates"
+                    min="2021-06-21"
+                    max="2021-08-06"
+                    multiple
+                    no-title
+                    scrollable
                   >
-                    OK
-                  </v-btn>
-                </v-date-picker>
-              </v-menu>
+                    <v-spacer></v-spacer>
+                    <v-btn text color="primary" @click="summerClassesMenu = false"> Cancel </v-btn>
+                    <v-btn
+                      text
+                      color="primary"
+                      @click="
+                        $refs.summerClassesMenu.save(
+                          programDoc.data.adks[index].autoApply[0].summerDates
+                        )
+                      "
+                    >
+                      OK
+                    </v-btn>
+                  </v-date-picker>
+                </v-menu>
+                <validation-provider v-slot="{ errors }" slim rules="numeric|required">
+                  <v-text-field
+                    v-model="programDoc.data.adks[index].autoApply[0].summerHours"
+                    :error-messages="errors"
+                    label="How many hours on average per day?"
+                    hint="Enter number of hours only"
+                    persistent-hint
+                    outlined
+                    rounded
+                    prepend-inner-icon="mdi-calendar-clock"
+                  ></v-text-field>
+                </validation-provider>
+              </div>
 
-              <v-text-field
-                v-model="summerClassesHours"
-                :error-messages="errors"
-                label="How many hours on average per day?"
-                hint="Enter number of hours only"
-                persistent-hint
-                outlined
-                rounded
-                prepend-inner-icon="mdi-calendar-clock"
-              ></v-text-field>
-            </div>
-
-            <!-- <div class="d-flex h6 font-weight-bold justify-center align-center">
+              <!-- <div class="d-flex h6 font-weight-bold justify-center align-center">
               Do you plan on getting a Summer Job?
             </div>
             <v-switch inset class="d-flex ml-auto mr-auto justify-center"></v-switch>
@@ -354,72 +372,73 @@
               Will you have to take Summer School?
             </div>
             <v-switch inset class="d-flex ml-auto mr-auto justify-center"></v-switch> -->
-          </v-container>
+            </v-container>
 
-          <v-divider class="mt-6"></v-divider>
-
-          <v-container class="d-flex justify-center">
-            <div class="d-flex flex-row justify-center mt-3 mb-5">
-              <v-btn
-                class="ma-2"
-                color="red"
-                outlined
-                x-large
-                rounded
-                depressed
-                @click="autoApply = false"
-                >Cancel</v-btn
-              >
-
-              <v-btn class="ma-2" x-large dark color="green" rounded depressed
-                ><v-icon left>mdi-check-all</v-icon>Auto-apply</v-btn
-              >
-            </div>
-          </v-container>
-        </v-card>
-      </v-dialog>
-      <div>
-        <v-dialog v-model="cancelApplication" persistent max-width="650px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn class="ml-3 mr-3" v-bind="attrs" outlined x-large rounded v-on="on"
-              >Cancel Application</v-btn
-            >
-          </template>
-          <v-card>
-            <v-card-title class="d-flex flex-column">
-              <div class="overline font-weight-bold">
-                Are you sure you want to cancel your application and end early?
-              </div>
-            </v-card-title>
-
-            <v-divider></v-divider>
+            <v-divider class="mt-6"></v-divider>
 
             <v-container class="d-flex justify-center">
               <div class="d-flex flex-row justify-center mt-3 mb-5">
                 <v-btn
                   class="ma-2"
-                  color="grey"
+                  color="red"
                   outlined
                   x-large
                   rounded
                   depressed
-                  @click="cancelApplication = false"
-                  >Just Kidding</v-btn
+                  @click="autoApply = false"
+                  >Cancel</v-btn
                 >
 
-                <v-btn class="ma-2" x-large dark color="red" rounded depressed
-                  >Cancel Application and End Early</v-btn
+                <v-btn class="ma-2" x-large dark color="green" rounded depressed @click="populate"
+                  ><v-icon left>mdi-check-all</v-icon>Auto-apply</v-btn
                 >
               </div>
             </v-container>
           </v-card>
         </v-dialog>
+        <div>
+          <v-dialog v-model="cancelApplication" persistent max-width="650px">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn class="ml-3 mr-3" v-bind="attrs" outlined x-large rounded v-on="on"
+                >Cancel Application</v-btn
+              >
+            </template>
+            <v-card>
+              <v-card-title class="d-flex flex-column">
+                <div class="overline font-weight-bold">
+                  Are you sure you want to cancel your application and end early?
+                </div>
+              </v-card-title>
+
+              <v-divider></v-divider>
+
+              <v-container class="d-flex justify-center">
+                <div class="d-flex flex-row justify-center mt-3 mb-5">
+                  <v-btn
+                    class="ma-2"
+                    color="grey"
+                    outlined
+                    x-large
+                    rounded
+                    depressed
+                    @click="cancelApplication = false"
+                    >Just Kidding</v-btn
+                  >
+
+                  <v-btn class="ma-2" x-large dark color="red" rounded depressed
+                    >Cancel Application and End Early</v-btn
+                  >
+                </div>
+              </v-container>
+            </v-card>
+          </v-dialog>
+        </div>
       </div>
-    </div>
-    <!-- ENTER CONTENT HERE -->
-    <!-- DESIGN YOUR ACTIVITY HERE / COMMENT OUT WHEN YOU'VE STARTED DESIGNING
+      <!-- ENTER CONTENT HERE -->
+      <!-- DESIGN YOUR ACTIVITY HERE / COMMENT OUT WHEN YOU'VE STARTED DESIGNING
       <div class="module-default__none">Design your activity here</div> -->
-  </div>
+    </div>
+  </ValidationObserver>
 </template>
 
 <script lang="ts">
@@ -438,7 +457,8 @@ export default defineComponent({
     value: {
       required: true,
       type: Object as PropType<MongoDoc>
-    }
+    },
+    currentPageTable: Number
   },
   setup(props, ctx) {
     const programDoc = computed({
@@ -448,9 +468,40 @@ export default defineComponent({
       }
     });
 
+    const PageValue = props.currentPageTable;
+
+    const modal1 = ref('');
+
     const index = programDoc.value.data.adks.findIndex(function findautoapplyobj(obj) {
       return obj.name === 'autoapply';
     });
+
+    const initAutoapplydefault = {
+      autoApply: [
+        {
+          vacationDates: [],
+          estimatedhours: '',
+          summerDates: [],
+          summerHours: ''
+        }
+      ]
+    };
+
+    programDoc.value.data.adks[index] = {
+      ...initAutoapplydefault,
+      ...programDoc.value.data.adks[index]
+    };
+
+    function populate() {
+      programDoc.value.data.adks[index].autoapply.push(
+        initAutoapplydefault.autoApply[0].vacationDates,
+        initAutoapplydefault.autoApply[0].summerDates
+      );
+      console.log(programDoc.value.data.adks[index].autoApply[0].vacationDates);
+      console.log(programDoc.value.data.adks[index].autoApply[0].estimatedhours);
+      console.log(programDoc.value.data.adks[index].autoApply[0].summerDates);
+      console.log(programDoc.value.data.adks[index].autoApply[0].summerHours);
+    }
 
     const setupInstructions = ref({
       description: '',
@@ -459,9 +510,12 @@ export default defineComponent({
     const showInstructions = ref(true);
 
     return {
+      populate,
+      PageValue,
       setupInstructions,
       showInstructions,
       programDoc,
+      modal1,
       index,
       endEarly: false,
       cancelApplication: false,

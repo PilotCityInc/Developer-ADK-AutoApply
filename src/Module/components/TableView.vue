@@ -4,15 +4,21 @@
       :headers="header"
       :items="items"
       sort-by="resource"
-      items-per-page="100"
-      hide-default-footer="true"
+      :items-per-page="100"
+      :hide-default-footer="true"
     >
       <template v-slot:item.edit>
         <v-btn depressed color="#E0E0E0" :ripple="false">Edit</v-btn>
       </template>
 
       <template v-slot:item.click="{ item }">
-        <v-btn outlined depressed x-small :ripple="false" @click="pageSelection(item.index)"
+        <v-btn
+          v-model="PageValue"
+          outlined
+          depressed
+          x-small
+          :ripple="false"
+          @click="pageSelection(item.index)"
           >Update</v-btn
         >
       </template>
@@ -47,11 +53,17 @@ import { items, HEADER } from './const';
 
 export default defineComponent({
   name: 'TableView',
-  setup() {
+  props: {
+    currentPageTable: Number
+  },
+  setup(props) {
+    const PageValue = props.currentPageTable;
+
+    console.log(PageValue);
     function pageSelection(index: any) {
       console.log(index);
     }
-    return { header: ref(HEADER), items, pageSelection };
+    return { header: ref(HEADER), items, pageSelection, PageValue };
   }
 });
 </script>
