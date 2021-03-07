@@ -66,7 +66,7 @@
             :is="getComponent"
             v-model="programDoc"
             :student-doc="studentDocument"
-            v-bind.sync="currentPageTable"
+            :page-value="PageValue"
           />
           <!-- </keep-alive> -->
         </div>

@@ -1,4 +1,4 @@
-<template>
+<template :page-value="pageindex">
   <div>
     <v-data-table
       :headers="header"
@@ -17,6 +17,7 @@
           outlined
           depressed
           x-small
+          :page-value="pageindex"
           :ripple="false"
           @click="pageSelection(item.index)"
           >Update</v-btn
@@ -59,11 +60,15 @@ export default defineComponent({
   setup(props) {
     const PageValue = props.currentPageTable;
 
+    const pageindex = ref();
     console.log(PageValue);
     function pageSelection(index: any) {
-      console.log(index);
+      pageindex.value = index;
+      console.log(props.currentPageTable);
+      console.log(pageindex.value);
     }
-    return { header: ref(HEADER), items, pageSelection, PageValue };
+
+    return { header: ref(HEADER), items, pageSelection, PageValue, pageindex };
   }
 });
 </script>

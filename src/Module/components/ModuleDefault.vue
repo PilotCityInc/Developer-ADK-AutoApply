@@ -52,249 +52,265 @@
           Accept or decline thereafter.
         </div>
       </div> -->
-        <div class="justify-center d-flex mt-12">
-          <v-icon color="#f79961" x-large>mdi-airballoon</v-icon>
+        <div v-show="setupAuto">
+          <div class="justify-center d-flex mt-12">
+            <v-icon color="#f79961" x-large>mdi-airballoon</v-icon>
+          </div>
+          <div class="module-default__statement1 headline font-weight-bold mt-6 justify-center">
+            You have automatically applied! <br />
+          </div>
+          <div
+            class="module-default__statement2 headline font-weight-medium justify-center mt-6 ml-12 mr-12"
+          >
+            Next step is to await an interview offer. Meanwhile, feel free to review your activities
+            below
+          </div>
+          <div class="d-flex justify-center mb-12"></div>
         </div>
-        <div class="module-default__statement1 headline font-weight-bold mt-6 justify-center">
-          You have automatically applied! <br />
-        </div>
-        <div
-          class="module-default__statement2 headline font-weight-medium justify-center mt-6 ml-12 mr-12"
-        >
-          Next step is to await an interview offer. Meanwhile, feel free to review your activities
-          below
-        </div>
-        <div class="d-flex justify-center mb-12"></div>
 
         <Table
           v-model="programDoc"
-          v-bind.sync="currentPageTable"
+          :page-value="PageValue"
           class="module-default__table-view"
         ></Table>
       </div>
+
       <div class="d-flex justify-center flex-row mt-12">
-        <v-dialog v-model="endEarly" persistent max-width="400px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              v-bind="attrs"
-              x-large
-              color="grey"
-              rounded
-              depressed
-              :ripple="false"
-              outlined
-              class="ml-3 mr-3"
-              v-on="on"
-              >End Early</v-btn
-            >
-          </template>
-          <v-card>
-            <v-card-title class="d-flex flex-column">
-              <div class="overline font-weight-bold">Are you sure you want to end early?</div>
-            </v-card-title>
+        <div v-show="!setupAuto">
+          <v-dialog v-model="endEarly" persistent max-width="400px">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                v-bind="attrs"
+                x-large
+                color="grey"
+                rounded
+                depressed
+                :ripple="false"
+                outlined
+                class="ml-3 mr-3"
+                v-on="on"
+                >End Early</v-btn
+              >
+            </template>
+            <v-card>
+              <v-card-title class="d-flex flex-column">
+                <div class="overline font-weight-bold">Are you sure you want to end early?</div>
+              </v-card-title>
 
-            <v-divider></v-divider>
+              <v-divider></v-divider>
 
-            <v-container class="d-flex justify-center">
-              <div class="d-flex flex-row justify-center mt-3 mb-5">
-                <v-btn
-                  class="ma-2"
-                  color="red"
-                  dark
-                  x-large
-                  rounded
-                  depressed
-                  @click="endEarly = false"
-                  >Cancel</v-btn
-                >
+              <v-container class="d-flex justify-center">
+                <div class="d-flex flex-row justify-center mt-3 mb-5">
+                  <v-btn
+                    class="ma-2"
+                    color="red"
+                    dark
+                    x-large
+                    rounded
+                    depressed
+                    @click="endEarly = false"
+                    >Cancel</v-btn
+                  >
 
-                <v-btn class="ma-2" x-large dark color="green" rounded depressed>End Early</v-btn>
-              </div>
-            </v-container>
-          </v-card>
-        </v-dialog>
-
-        <v-dialog v-model="autoApply" persistent max-width="525px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              v-bind="attrs"
-              x-large
-              rounded
-              depressed
-              :ripple="false"
-              color="#6EBA7F"
-              dark
-              class="ml-3 mr-3"
-              v-on="on"
-              ><v-icon left>mdi-check-all</v-icon>Auto-apply</v-btn
-            >
-          </template>
-          <v-card>
-            <v-card-title class="d-flex flex-column">
-              <v-icon class="mt-2 mb-2" color="green" x-large>mdi-check-all</v-icon>
-              <div class="d-flex headline font-weight-bold mt-2 mb-2">
-                Any additional Summer plans?
-              </div>
-            </v-card-title>
-
-            <v-divider class="mb-6"></v-divider>
-
-            <v-container class="d-flex flex-column justify-center">
-              <div class="d-flex flex-row justify-start ml-12">
-                <v-switch v-model="summerVacation" inset class=""></v-switch>
-                <div class="d-flex h6 font-weight-bold align-center">
-                  Do you plan on going on Summer Vacation?
+                  <v-btn class="ma-2" x-large dark color="green" rounded depressed>End Early</v-btn>
                 </div>
-              </div>
-              <div v-if="summerVacation" class="d-flex justify-center ml-12 mr-12">
-                <v-menu
-                  ref="summerVacationMenu"
-                  v-model="summerVacationMenu"
-                  :close-on-content-click="false"
-                  :return-value.sync="adkData.vacationDates"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-combobox
+              </v-container>
+            </v-card>
+          </v-dialog>
+
+          <v-dialog v-model="autoApply" persistent max-width="525px">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                v-bind="attrs"
+                x-large
+                rounded
+                depressed
+                :ripple="false"
+                color="#6EBA7F"
+                dark
+                class="ml-3 mr-3"
+                v-on="on"
+                ><v-icon left>mdi-check-all</v-icon>Auto-apply</v-btn
+              >
+            </template>
+            <v-card>
+              <v-card-title class="d-flex flex-column">
+                <v-icon class="mt-2 mb-2" color="green" x-large>mdi-check-all</v-icon>
+                <div class="d-flex headline font-weight-bold mt-2 mb-2">
+                  Any additional Summer plans?
+                </div>
+              </v-card-title>
+
+              <v-divider class="mb-6"></v-divider>
+
+              <v-container class="d-flex flex-column justify-center">
+                <div class="d-flex flex-row justify-start ml-12">
+                  <v-switch v-model="summerVacation" inset class=""></v-switch>
+                  <div class="d-flex h6 font-weight-bold align-center">
+                    Do you plan on going on Summer Vacation?
+                  </div>
+                </div>
+                <div v-if="summerVacation" class="d-flex justify-center ml-12 mr-12">
+                  <v-menu
+                    ref="summerVacationMenu"
+                    v-model="summerVacationMenu"
+                    :close-on-content-click="dateVacation"
+                    :return-value.sync="adkData.vacationDates"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-combobox
+                        v-model="summerVacationDates"
+                        rounded
+                        outlined
+                        multiple
+                        chips
+                        small-chips
+                        label="Select all your vacation dates"
+                        prepend-inner-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-combobox>
+                    </template>
+                    <v-date-picker
                       v-model="summerVacationDates"
-                      rounded
-                      outlined
+                      min="2021-06-21"
+                      max="2021-08-06"
                       multiple
-                      chips
-                      small-chips
-                      label="Select all your vacation dates"
-                      prepend-inner-icon="mdi-calendar"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-combobox>
-                  </template>
-                  <v-date-picker
-                    v-model="summerVacationDates"
-                    min="2021-06-21"
-                    max="2021-08-06"
-                    multiple
-                    no-title
-                    scrollable
+                      no-title
+                      scrollable
+                    >
+                      <v-spacer></v-spacer>
+                      <v-btn text color="primary" @click="summerVacationMenu = false">
+                        Cancel
+                      </v-btn>
+                      <v-btn text color="primary" @click="saveVacationDates"> OK </v-btn>
+                    </v-date-picker>
+                  </v-menu>
+                </div>
+
+                <div class="d-flex flex-row justify-start ml-12">
+                  <v-switch v-model="summerJob" inset class=""></v-switch>
+                  <div class="d-flex h6 font-weight-bold align-center">
+                    Do you plan on getting a Summer Job?
+                  </div>
+                </div>
+                <div v-if="summerJob" class="d-flex justify-center ml-12 mr-12">
+                  <validation-provider v-slot="{ errors }" slim rules="numeric">
+                    <v-text-field
+                      v-model="adkData.estimatedhours"
+                      :error-messages="errors"
+                      label="How many estimated hours per week?"
+                      hint="Enter number of hours only"
+                      persistent-hint
+                      outlined
+                      rounded
+                      prepend-inner-icon="mdi-calendar-clock"
+                    ></v-text-field>
+                  </validation-provider>
+                </div>
+
+                <div class="d-flex flex-row justify-start ml-12">
+                  <v-switch v-model="summerClasses" inset class=""></v-switch>
+                  <div class="d-flex h6 font-weight-bold align-center">
+                    Do you plan on having Summer Classes?
+                  </div>
+                </div>
+                <div v-if="summerClasses" class="d-flex justify-center flex-column ml-12 mr-12">
+                  <v-menu
+                    ref="summerClassesMenu"
+                    v-model="summerClassesMenu"
+                    :close-on-content-click="dateSummer"
+                    :return-value.sync="adkData.summerDates"
+                    transition="scale-transition"
+                    offset-y
+                    min-width="auto"
                   >
-                    <v-spacer></v-spacer>
-                    <v-btn text color="primary" @click="summerVacationMenu = false"> Cancel </v-btn>
-                    <v-btn text color="primary" @click="saveVacationDates"> OK </v-btn>
-                  </v-date-picker>
-                </v-menu>
-              </div>
-
-              <div class="d-flex flex-row justify-start ml-12">
-                <v-switch v-model="summerJob" inset class=""></v-switch>
-                <div class="d-flex h6 font-weight-bold align-center">
-                  Do you plan on getting a Summer Job?
-                </div>
-              </div>
-              <div v-if="summerJob" class="d-flex justify-center ml-12 mr-12">
-                <validation-provider v-slot="{ errors }" slim rules="numeric">
-                  <v-text-field
-                    v-model="adkData.estimatedhours"
-                    :error-messages="errors"
-                    label="How many estimated hours per week?"
-                    hint="Enter number of hours only"
-                    persistent-hint
-                    outlined
-                    rounded
-                    prepend-inner-icon="mdi-calendar-clock"
-                  ></v-text-field>
-                </validation-provider>
-              </div>
-
-              <div class="d-flex flex-row justify-start ml-12">
-                <v-switch v-model="summerClasses" inset class=""></v-switch>
-                <div class="d-flex h6 font-weight-bold align-center">
-                  Do you plan on having Summer Classes?
-                </div>
-              </div>
-              <div v-if="summerClasses" class="d-flex justify-center flex-column ml-12 mr-12">
-                <v-menu
-                  ref="summerClassesMenu"
-                  v-model="summerClassesMenu"
-                  :close-on-content-click="false"
-                  :return-value.sync="adkData.summerDates"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-combobox
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-combobox
+                        v-model="summerClassesDates"
+                        rounded
+                        outlined
+                        multiple
+                        chips
+                        small-chips
+                        label="Select all your class dates"
+                        prepend-inner-icon="mdi-calendar"
+                        readonly
+                        v-bind="attrs"
+                        v-on="on"
+                      ></v-combobox>
+                    </template>
+                    <v-date-picker
                       v-model="summerClassesDates"
-                      rounded
-                      outlined
+                      min="2021-06-21"
+                      max="2021-08-06"
                       multiple
-                      chips
-                      small-chips
-                      label="Select all your class dates"
-                      prepend-inner-icon="mdi-calendar"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-combobox>
-                  </template>
-                  <v-date-picker
-                    v-model="summerClassesDates"
-                    min="2021-06-21"
-                    max="2021-08-06"
-                    multiple
-                    no-title
-                    scrollable
-                  >
-                    <v-spacer></v-spacer>
-                    <v-btn text color="primary" @click="summerClassesMenu = false"> Cancel </v-btn>
-                    <v-btn text color="primary" @click="saveSummerDates"> OK </v-btn>
-                  </v-date-picker>
-                </v-menu>
-                <validation-provider v-slot="{ errors }" slim rules="numeric|required">
-                  <v-text-field
-                    v-model="adkData.summerHours"
-                    :error-messages="errors"
-                    label="How many hours on average per day?"
-                    hint="Enter number of hours only"
-                    persistent-hint
+                      no-title
+                      scrollable
+                    >
+                      <v-spacer></v-spacer>
+                      <v-btn text color="primary" @click="summerClassesMenu = false">
+                        Cancel
+                      </v-btn>
+                      <v-btn text color="primary" @click="saveSummerDates"> OK </v-btn>
+                    </v-date-picker>
+                  </v-menu>
+                  <validation-provider v-slot="{ errors }" slim rules="numeric|required">
+                    <v-text-field
+                      v-model="adkData.summerHours"
+                      :error-messages="errors"
+                      label="How many hours on average per day?"
+                      hint="Enter number of hours only"
+                      persistent-hint
+                      outlined
+                      rounded
+                      prepend-inner-icon="mdi-calendar-clock"
+                    ></v-text-field>
+                  </validation-provider>
+                </div>
+              </v-container>
+
+              <v-divider class="mt-6"></v-divider>
+
+              <v-container class="d-flex justify-center">
+                <div class="d-flex flex-row justify-center mt-3 mb-5">
+                  <v-btn
+                    class="ma-2"
+                    color="red"
                     outlined
+                    x-large
                     rounded
-                    prepend-inner-icon="mdi-calendar-clock"
-                  ></v-text-field>
-                </validation-provider>
-              </div>
-            </v-container>
+                    depressed
+                    @click="autoApply = false"
+                    >Cancel</v-btn
+                  >
 
-            <v-divider class="mt-6"></v-divider>
-
-            <v-container class="d-flex justify-center">
-              <div class="d-flex flex-row justify-center mt-3 mb-5">
-                <v-btn
-                  class="ma-2"
-                  color="red"
-                  outlined
-                  x-large
-                  rounded
-                  depressed
-                  @click="autoApply = false"
-                  >Cancel</v-btn
-                >
-
-                <v-btn class="ma-2" x-large dark color="green" rounded depressed @click="process"
-                  ><v-icon left>mdi-check-all</v-icon>Auto-apply</v-btn
-                >
-              </div>
-            </v-container>
-            <v-alert v-if="success || error" :type="success ? 'success' : 'error'" class="mt-2">{{
-              message
-            }}</v-alert>
-          </v-card>
-        </v-dialog>
+                  <v-btn class="ma-2" x-large dark color="green" rounded depressed @click="process"
+                    ><v-icon left>mdi-check-all</v-icon>Auto-apply</v-btn
+                  >
+                </div>
+              </v-container>
+              <v-alert v-if="success || error" :type="success ? 'success' : 'error'" class="mt-2">{{
+                message
+              }}</v-alert>
+            </v-card>
+          </v-dialog>
+        </div>
         <div>
           <v-dialog v-model="cancelApplication" persistent max-width="650px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn class="ml-3 mr-3" v-bind="attrs" outlined x-large rounded v-on="on"
+              <v-btn
+                v-show="setupAuto"
+                class="ml-3 mr-3"
+                v-bind="attrs"
+                outlined
+                x-large
+                rounded
+                v-on="on"
                 >Cancel Application</v-btn
               >
             </template>
@@ -385,8 +401,11 @@ export default defineComponent({
 
     const summerClassesDates = ref([]);
     const summerVacationDates = ref([]);
+    const dateVacation = ref(false);
+    const dateSummer = ref(false);
 
     function saveSummerDates() {
+      dateSummer.value = true;
       while (adkData.value.summerDates.length > 0) {
         adkData.value.summerDates.pop();
       }
@@ -396,6 +415,7 @@ export default defineComponent({
     }
 
     function saveVacationDates() {
+      dateVacation.value = true;
       while (adkData.value.vacationDates.length > 0) {
         adkData.value.vacationDates.pop();
       }
@@ -403,10 +423,14 @@ export default defineComponent({
       // console.log(adkData.value.vacationDates);
     }
 
-    const setupAuto = ref(0);
+    const setupAuto = ref(false);
+
+    const autoApply = ref(false);
 
     function populate() {
-      setupAuto.value = 1;
+      setupAuto.value = true;
+      autoApply.value = false;
+      console.log(studentDoc);
       return new Promise((resolve, reject) => {
         studentDoc.value.update();
         resolve(true);
@@ -425,11 +449,13 @@ export default defineComponent({
       setupInstructions,
       showInstructions,
       programDoc,
+      dateVacation,
+      dateSummer,
       modal1,
       adkData,
       endEarly: false,
       cancelApplication: false,
-      autoApply: false,
+      autoApply,
       summerVacation: null,
       summerJob: null,
       summerJobHours: null,
