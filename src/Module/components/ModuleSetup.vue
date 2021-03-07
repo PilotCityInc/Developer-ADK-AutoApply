@@ -9,61 +9,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, PropType, toRefs, reactive } from '@vue/composition-api';
-import { createLoader } from 'pcv4lib/src';
-import MongoDoc from '../types';
+import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'ModuleSetup',
-  props: {
-    value: {
-      required: true,
-      type: Object as PropType<MongoDoc>
-    }
-  },
 
-  setup(props, ctx) {
-    const programDoc = computed({
-      get: () => props.value,
-      set: newVal => {
-        ctx.emit('input', newVal);
-      }
-    });
-
-    const index = programDoc.value.data.adks.findIndex(function findautoapplyobj(obj) {
-      return obj.name === 'autoapply';
-    });
-
-    const inintAutoapplysetup = {
-      autoapply: [
-        {
-          requirements: 0,
-          resumeRequired: 0
-        }
-      ]
-    };
-
-    programDoc.value.data.adks[index] = {
-      ...inintAutoapplysetup,
-      ...programDoc.value.data.adks[index]
-    };
-
-    function populate() {
-      programDoc.value.data.adks[index].autoapply.push(inintAutoapplysetup.autoapply[0]);
-    }
-
-    function onSave() {
-      console.log(programDoc.value.data.adks[index].autoapply[0]);
-    }
-
-    return {
-      // ...toRefs(setup),
-      reactive,
-      programDoc,
-      index,
-      populate,
-      ...createLoader(programDoc.value.update, 'Saved', 'Something went wrong, try again later')
-    };
+  setup() {
+    return {};
   }
 });
 </script>

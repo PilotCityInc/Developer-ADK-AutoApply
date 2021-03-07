@@ -1,6 +1,10 @@
 <template>
   <v-app>
-    <Module v-model="programDocStub" />
+    <Module
+      v-model="programDocStub"
+      :student-doc="studentDoc"
+      @inputStudentDoc="studentDoc = $event"
+    />
   </v-app>
 </template>
 
@@ -31,10 +35,28 @@ export default defineComponent({
           }, 3000);
         });
       },
+
       changeStream: {}
     });
+
+    const studentDoc: Ref<MongoDoc> = ref({
+      data: {
+        adks: []
+      },
+      update: () => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(true);
+            // reject(new Error('REJECTED'));
+          }, 3000);
+        });
+      },
+      changeStream: {}
+    });
+
     return {
-      programDocStub
+      programDocStub,
+      studentDoc
     };
   }
 });

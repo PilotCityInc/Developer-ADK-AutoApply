@@ -62,7 +62,12 @@
         </div>
         <div class="module__page">
           <!-- <keep-alive> -->
-          <component :is="getComponent" v-model="programDoc" v-bind.sync="currentPageTable" />
+          <component
+            :is="getComponent"
+            v-model="programDoc"
+            :student-doc="studentDocument"
+            v-bind.sync="currentPageTable"
+          />
           <!-- </keep-alive> -->
         </div>
       </div>
@@ -105,6 +110,7 @@ body {
 <script lang="ts">
 import { computed, reactive, ref, toRefs, defineComponent, PropType } from '@vue/composition-api';
 import '../styles/module.scss';
+import { getModMongoDoc } from 'pcv4lib/src';
 import * as Module from './components';
 import MongoDoc from './types';
 
@@ -120,31 +126,19 @@ export default defineComponent({
       required: true,
       type: Object as PropType<MongoDoc>
     },
+    studentDoc: {
+      required: true,
+      type: Object as PropType<MongoDoc>
+    },
     currentPageTable: Number
   },
   setup(props, ctx) {
-    //
-    // props.programCollection.findOne({
-    //   _id: props.programId
-    // });
-    const programDoc = computed({
-      get: () => props.value,
-      set: newVal => {
-        ctx.emit('input', newVal);
-      }
-    });
+    const programDoc = getModMongoDoc(props, ctx.emit);
+
+    const studentDocument = getModMongoDoc(props, ctx.emit, {}, 'studentDoc', 'inputStudentDoc');
 
     const PageValue = props.currentPageTable;
 
-    const index = programDoc.value.data.adks.findIndex(function findautoapplyobj(obj) {
-      return obj.name === 'autoapply';
-    });
-    if (index === -1) {
-      const inintAutoapply = {
-        name: 'autoapply'
-      };
-      programDoc.value.data.adks.push(inintAutoapply);
-    }
     // ENTER ACTIVITY NAME BELOW
     const moduleName = ref('Auto-Application');
     const page = reactive({
@@ -209,6 +203,7 @@ export default defineComponent({
       ...toRefs(timelineData),
       timeline,
       comment,
+      studentDocument,
       programDoc,
       PageValue
     };

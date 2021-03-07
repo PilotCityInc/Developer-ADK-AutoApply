@@ -114,24 +114,6 @@
           </v-card>
         </v-dialog>
 
-        <!-- <v-tooltip top color="black">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            v-bind="attrs"
-            x-large
-            rounded
-            depressed
-            :ripple="false"
-            color="#6EBA7F"
-            dark
-            class="module-default__opt"
-            v-on="on"
-            ><v-icon left>mdi-check-all</v-icon>Auto-apply</v-btn
-          >
-        </template>
-        <span>Automatically apply for an internship</span>
-      </v-tooltip> -->
-
         <v-dialog v-model="autoApply" persistent max-width="525px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
@@ -158,41 +140,6 @@
             <v-divider class="mb-6"></v-divider>
 
             <v-container class="d-flex flex-column justify-center">
-              <!-- <div class="d-flex h6 font-weight-bold justify-center">
-              Would you prefer this program over traditional learning?
-            </div>
-            <v-rating class="d-flex justify-center"></v-rating>
-            <br />
-            <div class="d-flex h6 font-weight-bold justify-center">
-              Would you like to join our program next year?
-            </div>
-            <v-rating class="d-flex justify-center"></v-rating>
-
-            <br />
-            <div class="d-flex h6 font-weight-bold justify-center">
-              Would you recommend this program to your other teachers?
-            </div>
-            <v-rating class="d-flex justify-center"></v-rating>
-
-            <br />
-            <div class="d-flex h6 font-weight-bold justify-center">
-              Are you a graduating high school senior?
-            </div>
-            <v-switch inset class="d-flex ml-auto mr-auto justify-center"></v-switch>
-
-            <br />
-            <div class="d-flex h6 font-weight-bold justify-center">
-              Automatically qualify to take classes at your local community college?
-            </div>
-            <v-switch inset class="d-flex ml-auto mr-auto justify-center"></v-switch>
-
-            <br />
-            <div class="d-flex h6 font-weight-bold justify-center">
-              Automatically qualify for coding or computer science programs?
-            </div>
-            <v-switch inset class="d-flex ml-auto mr-auto justify-center"></v-switch>
-
-            <br /> -->
               <div class="d-flex flex-row justify-start ml-12">
                 <v-switch v-model="summerVacation" inset class=""></v-switch>
                 <div class="d-flex h6 font-weight-bold align-center">
@@ -200,25 +147,18 @@
                 </div>
               </div>
               <div v-if="summerVacation" class="d-flex justify-center ml-12 mr-12">
-                <!-- <v-text-field
-                outlined
-                rounded
-                label="When do you leave and come back?"
-                prepend-inner-icon="mdi-calendar"
-              ></v-text-field> -->
-
                 <v-menu
                   ref="summerVacationMenu"
                   v-model="summerVacationMenu"
                   :close-on-content-click="false"
-                  :return-value.sync="programDoc.data.adks[index].autoApply[0].vacationDates"
+                  :return-value.sync="adkData.vacationDates"
                   transition="scale-transition"
                   offset-y
                   min-width="auto"
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-combobox
-                      v-model="programDoc.data.adks[index].autoApply[0].vacationDates"
+                      v-model="summerVacationDates"
                       rounded
                       outlined
                       multiple
@@ -232,7 +172,7 @@
                     ></v-combobox>
                   </template>
                   <v-date-picker
-                    v-model="programDoc.data.adks[index].autoApply[0].vacationDates"
+                    v-model="summerVacationDates"
                     min="2021-06-21"
                     max="2021-08-06"
                     multiple
@@ -241,17 +181,7 @@
                   >
                     <v-spacer></v-spacer>
                     <v-btn text color="primary" @click="summerVacationMenu = false"> Cancel </v-btn>
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="
-                        $refs.summerVacationMenu.save(
-                          programDoc.data.adks[index].autoApply[0].vacationDates
-                        )
-                      "
-                    >
-                      OK
-                    </v-btn>
+                    <v-btn text color="primary" @click="saveVacationDates"> OK </v-btn>
                   </v-date-picker>
                 </v-menu>
               </div>
@@ -265,7 +195,7 @@
               <div v-if="summerJob" class="d-flex justify-center ml-12 mr-12">
                 <validation-provider v-slot="{ errors }" slim rules="numeric">
                   <v-text-field
-                    v-model="programDoc.data.adks[index].autoApply[0].estimatedhours"
+                    v-model="adkData.estimatedhours"
                     :error-messages="errors"
                     label="How many estimated hours per week?"
                     hint="Enter number of hours only"
@@ -277,14 +207,6 @@
                 </validation-provider>
               </div>
 
-              <!-- <div class="d-flex flex-row justify-start ml-12">
-              <v-switch v-model="summerCollege" inset class=""></v-switch>
-              <div class="d-flex h6 font-weight-bold align-center">
-                Do you plan on taking Summer Classes or School? 
-              </div>
-            </div>
-            <div v-if="summerCollege" class="d-flex justify-center">hi</div> -->
-
               <div class="d-flex flex-row justify-start ml-12">
                 <v-switch v-model="summerClasses" inset class=""></v-switch>
                 <div class="d-flex h6 font-weight-bold align-center">
@@ -292,25 +214,18 @@
                 </div>
               </div>
               <div v-if="summerClasses" class="d-flex justify-center flex-column ml-12 mr-12">
-                <!-- <v-text-field
-                outlined
-                rounded
-                label="When does it start and end?"
-                prepend-inner-icon="mdi-calendar"
-              ></v-text-field> -->
-
                 <v-menu
                   ref="summerClassesMenu"
                   v-model="summerClassesMenu"
                   :close-on-content-click="false"
-                  :return-value.sync="programDoc.data.adks[index].autoApply[0].summerDates"
+                  :return-value.sync="adkData.summerDates"
                   transition="scale-transition"
                   offset-y
                   min-width="auto"
                 >
                   <template v-slot:activator="{ on, attrs }">
                     <v-combobox
-                      v-model="programDoc.data.adks[index].autoApply[0].summerDates"
+                      v-model="summerClassesDates"
                       rounded
                       outlined
                       multiple
@@ -324,7 +239,7 @@
                     ></v-combobox>
                   </template>
                   <v-date-picker
-                    v-model="programDoc.data.adks[index].autoApply[0].summerDates"
+                    v-model="summerClassesDates"
                     min="2021-06-21"
                     max="2021-08-06"
                     multiple
@@ -333,22 +248,12 @@
                   >
                     <v-spacer></v-spacer>
                     <v-btn text color="primary" @click="summerClassesMenu = false"> Cancel </v-btn>
-                    <v-btn
-                      text
-                      color="primary"
-                      @click="
-                        $refs.summerClassesMenu.save(
-                          programDoc.data.adks[index].autoApply[0].summerDates
-                        )
-                      "
-                    >
-                      OK
-                    </v-btn>
+                    <v-btn text color="primary" @click="saveSummerDates"> OK </v-btn>
                   </v-date-picker>
                 </v-menu>
                 <validation-provider v-slot="{ errors }" slim rules="numeric|required">
                   <v-text-field
-                    v-model="programDoc.data.adks[index].autoApply[0].summerHours"
+                    v-model="adkData.summerHours"
                     :error-messages="errors"
                     label="How many hours on average per day?"
                     hint="Enter number of hours only"
@@ -359,19 +264,6 @@
                   ></v-text-field>
                 </validation-provider>
               </div>
-
-              <!-- <div class="d-flex h6 font-weight-bold justify-center align-center">
-              Do you plan on getting a Summer Job?
-            </div>
-            <v-switch inset class="d-flex ml-auto mr-auto justify-center"></v-switch>
-            <div class="d-flex h6 font-weight-bold justify-center">
-              Do you plan on taking Summer College Classes?
-            </div>
-            <v-switch inset class="d-flex ml-auto mr-auto justify-center"></v-switch>
-            <div class="d-flex h6 font-weight-bold justify-center">
-              Will you have to take Summer School?
-            </div>
-            <v-switch inset class="d-flex ml-auto mr-auto justify-center"></v-switch> -->
             </v-container>
 
             <v-divider class="mt-6"></v-divider>
@@ -389,11 +281,14 @@
                   >Cancel</v-btn
                 >
 
-                <v-btn class="ma-2" x-large dark color="green" rounded depressed @click="populate"
+                <v-btn class="ma-2" x-large dark color="green" rounded depressed @click="process"
                   ><v-icon left>mdi-check-all</v-icon>Auto-apply</v-btn
                 >
               </div>
             </v-container>
+            <v-alert v-if="success || error" :type="success ? 'success' : 'error'" class="mt-2">{{
+              message
+            }}</v-alert>
           </v-card>
         </v-dialog>
         <div>
@@ -442,7 +337,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, PropType } from '@vue/composition-api';
+import { defineComponent, ref, computed, reactive, toRefs, PropType } from '@vue/composition-api';
+import { getModMongoDoc, getModAdk, loading } from 'pcv4lib/src';
 import Instruct from './ModuleInstruct.vue';
 import Table from './TableView.vue';
 import MongoDoc from '../types';
@@ -458,49 +354,63 @@ export default defineComponent({
       required: true,
       type: Object as PropType<MongoDoc>
     },
+    studentDoc: {
+      required: true,
+      type: Object as PropType<MongoDoc>
+    },
     currentPageTable: Number
   },
   setup(props, ctx) {
-    const programDoc = computed({
-      get: () => props.value,
-      set: newVal => {
-        ctx.emit('input', newVal);
-      }
-    });
-
     const PageValue = props.currentPageTable;
 
     const modal1 = ref('');
-
-    const index = programDoc.value.data.adks.findIndex(function findautoapplyobj(obj) {
-      return obj.name === 'autoapply';
-    });
+    const programDoc = getModMongoDoc(props, ctx.emit);
+    const studentDoc = getModMongoDoc(props, ctx.emit, {}, 'studentDoc', 'inputStudentDoc');
 
     const initAutoapplydefault = {
-      autoApply: [
-        {
-          vacationDates: [],
-          estimatedhours: '',
-          summerDates: [],
-          summerHours: ''
-        }
-      ]
+      vacationDates: [],
+      estimatedhours: '',
+      summerDates: [],
+      summerHours: ''
     };
 
-    programDoc.value.data.adks[index] = {
-      ...initAutoapplydefault,
-      ...programDoc.value.data.adks[index]
-    };
+    const { adkData } = getModAdk(
+      props,
+      ctx.emit,
+      'autoapply',
+      initAutoapplydefault,
+      'studentDoc',
+      'inputStudentDoc'
+    );
+
+    const summerClassesDates = ref([]);
+    const summerVacationDates = ref([]);
+
+    function saveSummerDates() {
+      while (adkData.value.summerDates.length > 0) {
+        adkData.value.summerDates.pop();
+      }
+      adkData.value.summerDates.push(...summerClassesDates.value);
+
+      // console.log(adkData.value.summerDates);
+    }
+
+    function saveVacationDates() {
+      while (adkData.value.vacationDates.length > 0) {
+        adkData.value.vacationDates.pop();
+      }
+      adkData.value.vacationDates.push(...summerVacationDates.value);
+      // console.log(adkData.value.vacationDates);
+    }
+
+    const setupAuto = ref(0);
 
     function populate() {
-      programDoc.value.data.adks[index].autoapply.push(
-        initAutoapplydefault.autoApply[0].vacationDates,
-        initAutoapplydefault.autoApply[0].summerDates
-      );
-      console.log(programDoc.value.data.adks[index].autoApply[0].vacationDates);
-      console.log(programDoc.value.data.adks[index].autoApply[0].estimatedhours);
-      console.log(programDoc.value.data.adks[index].autoApply[0].summerDates);
-      console.log(programDoc.value.data.adks[index].autoApply[0].summerHours);
+      setupAuto.value = 1;
+      return new Promise((resolve, reject) => {
+        studentDoc.value.update();
+        resolve(true);
+      });
     }
 
     const setupInstructions = ref({
@@ -516,7 +426,7 @@ export default defineComponent({
       showInstructions,
       programDoc,
       modal1,
-      index,
+      adkData,
       endEarly: false,
       cancelApplication: false,
       autoApply: false,
@@ -526,10 +436,14 @@ export default defineComponent({
       // summerCollege: null,
       summerClasses: null,
       summerClassesHours: null,
-      summerVacationDates: null,
+      summerVacationDates,
       summerVacationMenu: false,
-      summerClassesDates: null,
-      summerClassesMenu: false
+      summerClassesDates,
+      summerClassesMenu: false,
+      saveSummerDates,
+      saveVacationDates,
+      setupAuto,
+      ...loading(populate, 'Saved Successfully', 'Could not save at this time')
     };
   }
 });
