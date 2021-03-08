@@ -67,7 +67,7 @@
             v-model="programDoc"
             :student-doc="studentDocument"
             :page-value="PageValue"
-            :timeline-duplicate="timelineDuplicate"
+            :timeline="timelineDuplicate"
             @input:PageValue="PageValue = $event"
           />
           <!-- </keep-alive> -->
@@ -138,7 +138,7 @@ export default defineComponent({
     },
     timeline: {
       required: true,
-      type: Object as () => Timeline
+      type: Array as PropType<Timeline[]>
     }
   },
   setup(props, ctx) {

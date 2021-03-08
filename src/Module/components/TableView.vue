@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, computed } from '@vue/composition-api';
+import { ref, defineComponent, computed, PropType } from '@vue/composition-api';
 import { items, HEADER } from './const';
 import { Timeline } from '../types';
 
@@ -46,7 +46,7 @@ export default defineComponent({
     },
     timeline: {
       required: true,
-      type: Object as () => Timeline
+      type: Array as PropType<Timeline[]>
     }
   },
 
@@ -60,8 +60,9 @@ export default defineComponent({
 
     const pageindex = ref();
 
-    function pageSelection(index: any) {
+    function pageSelection(index: number) {
       PageValueNumber.value = index;
+      console.log(index);
       console.log(PageValueNumber.value);
     }
 

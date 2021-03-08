@@ -7,6 +7,6 @@ export default interface MongoDoc {
 }
 
 export interface Timeline {
-  step:  String;
-  unlocked:  Boolean;
+  step: string;
+  unlocked: boolean;
 }

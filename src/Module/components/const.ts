@@ -30,7 +30,7 @@ export const HEADER = [
 export const items = [
   {
     // need to ask
-    index: '1',
+    index: 1,
     activity: 'Start Program',
     completion: '100%',
     updated: 'Today at 7:30pm',
@@ -39,7 +39,7 @@ export const items = [
     color: 'green'
   },
   {
-    index: '2',
+    index: 2,
     activity: 'Request for Projects',
     completion: '100%',
     updated: 'Yesterday at 12:30pm',
@@ -49,7 +49,7 @@ export const items = [
   },
   {
     // need to ask
-    index: '3',
+    index: 3,
     activity: 'Team',
     completion: '100%',
     updated: 'Jul 12 at 3:30pm',
@@ -58,7 +58,7 @@ export const items = [
     color: 'green'
   },
   {
-    index: '4',
+    index: 4,
     activity: 'Discord',
     completion: '100%',
     updated: 'Oct 10 at 7:30pm',
@@ -67,7 +67,7 @@ export const items = [
     color: 'green'
   },
   {
-    index: '5',
+    index: 5,
     activity: 'Train',
     completion: '100%',
     updated: 'Oct 15 at 3:30pm',
@@ -76,7 +76,7 @@ export const items = [
     color: 'green'
   },
   {
-    index: '6',
+    index: 6,
     activity: 'Research',
     completion: '100%',
     updated: 'Oct 16 at 3:30pm',
@@ -85,7 +85,7 @@ export const items = [
     color: 'green'
   },
   {
-    index: '7',
+    index: 7,
     activity: 'Practice',
     completion: '0%',
     updated: 'Oct 2 at 7:30pm',
@@ -94,7 +94,7 @@ export const items = [
     color: 'green'
   },
   {
-    index: '8',
+    index: 8,
     activity: 'Ideate',
     completion: '0%',
     updated: 'Oct 23 at 9:30pm',
@@ -103,7 +103,7 @@ export const items = [
     color: 'green'
   },
   {
-    index: '9',
+    index: 9,
     activity: 'Pitch',
     completion: '0%',
     updated: 'Oct 5 at 8:30pm',
@@ -112,7 +112,7 @@ export const items = [
     color: 'green'
   },
   {
-    index: '10',
+    index: 10,
     activity: 'Forum',
     completion: '0%',
     updated: 'Oct 4 at 7:30pm',
@@ -121,7 +121,7 @@ export const items = [
     color: 'green'
   },
   {
-    index: '11',
+    index: 11,
     activity: 'Make',
     completion: '0%',
     updated: 'Oct 23 at 7:30pm',
@@ -130,7 +130,7 @@ export const items = [
     color: 'green'
   },
   {
-    index: '12',
+    index: 12,
     activity: 'Demonstration',
     completion: '0%',
     updated: 'Oct 31 at 4:30pm',

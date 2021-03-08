@@ -70,10 +70,10 @@
 
         <Table
           v-model="programDoc"
-          :page-value-index="PageValueIndex"
+          :page-value="PageValueIndex"
           :timeline="timeline"
           class="module-default__table-view"
-          @input:PageValueIndex="PageValueIndex = $input"
+          @input:PageValueIndex="PageValueIndex = $event"
         ></Table>
       </div>
 
@@ -399,7 +399,7 @@ export default defineComponent({
     },
     timeline: {
       required: true,
-      type: Object as () => Timeline
+      type: Array as PropType<Timeline[]>
     }
   },
   setup(props, ctx) {
