@@ -5,3 +5,8 @@ export default interface MongoDoc {
   update: () => Promise<any>;
   changeStream: any;
 }
+
+export interface Timeline {
+  step:  String;
+  unlocked:  Boolean;
+}

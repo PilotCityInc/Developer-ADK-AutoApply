@@ -3,7 +3,10 @@
     <Module
       v-model="programDocStub"
       :student-doc="studentDoc"
+      :timeline="timeline"
+      :current-page-table="currentPageTable"
       @inputStudentDoc="studentDoc = $event"
+      @input:currentPageTable="currentPageTable = $event"
     />
   </v-app>
 </template>
@@ -54,9 +57,22 @@ export default defineComponent({
       changeStream: {}
     });
 
+    const timeline = [
+      {
+        step: 'RFP',
+        unlocked: true
+      },
+      {
+        step: 'AutoApply',
+        unlocked: true
+      }
+    ];
+    const currentPageTable = ref(timeline.length - 1);
     return {
       programDocStub,
-      studentDoc
+      studentDoc,
+      timeline,
+      currentPageTable
     };
   }
 });

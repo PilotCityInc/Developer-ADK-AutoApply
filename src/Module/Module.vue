@@ -67,6 +67,8 @@
             v-model="programDoc"
             :student-doc="studentDocument"
             :page-value="PageValue"
+            :timeline-duplicate="timelineDuplicate"
+            @input:PageValue="PageValue = $event"
           />
           <!-- </keep-alive> -->
         </div>
@@ -112,7 +114,7 @@ import { computed, reactive, ref, toRefs, defineComponent, PropType } from '@vue
 import '../styles/module.scss';
 import { getModMongoDoc } from 'pcv4lib/src';
 import * as Module from './components';
-import MongoDoc from './types';
+import MongoDoc, { Timeline } from './types';
 
 export default defineComponent({
   name: 'ModuleName',
@@ -130,14 +132,26 @@ export default defineComponent({
       required: true,
       type: Object as PropType<MongoDoc>
     },
-    currentPageTable: Number
+    currentPageTable: {
+      required: true,
+      type: Number
+    },
+    timeline: {
+      required: true,
+      type: Object as () => Timeline
+    }
   },
   setup(props, ctx) {
     const programDoc = getModMongoDoc(props, ctx.emit);
 
     const studentDocument = getModMongoDoc(props, ctx.emit, {}, 'studentDoc', 'inputStudentDoc');
 
-    const PageValue = props.currentPageTable;
+    const PageValue = computed({
+      get: () => props.currentPageTable,
+      set: newPage => {
+        ctx.emit('input:currentPageTable', newPage);
+      }
+    });
 
     // ENTER ACTIVITY NAME BELOW
     const moduleName = ref('Auto-Application');
@@ -175,7 +189,7 @@ export default defineComponent({
       input: '',
       nonce: 0
     });
-    const timeline = computed(() => {
+    const timelineDuplicate = computed(() => {
       return timelineData.events.slice().reverse();
     });
     function comment() {
@@ -201,7 +215,7 @@ export default defineComponent({
       getComponent,
       getColor,
       ...toRefs(timelineData),
-      timeline,
+      timelineDuplicate,
       comment,
       studentDocument,
       programDoc,

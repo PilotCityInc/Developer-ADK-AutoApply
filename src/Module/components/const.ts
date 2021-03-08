@@ -23,6 +23,8 @@ export const HEADER = [
   { text: 'Status', align: 'center', value: 'status', sortable: false, width: '5%' },
 
   { text: 'Update', align: 'center', value: 'click', sortable: false, width: '20%' }
+
+  // { text: 'Update', align: 'center', value: 'color', sortable: false, width: '20%' }
 ];
 
 export const items = [
@@ -33,7 +35,8 @@ export const items = [
     completion: '100%',
     updated: 'Today at 7:30pm',
     type: 'Activity',
-    group: 'Onboard'
+    group: 'Onboard',
+    color: 'green'
   },
   {
     index: '2',
@@ -41,7 +44,8 @@ export const items = [
     completion: '100%',
     updated: 'Yesterday at 12:30pm',
     type: 'Activity',
-    group: 'Onboard'
+    group: 'Onboard',
+    color: 'green'
   },
   {
     // need to ask
@@ -50,7 +54,8 @@ export const items = [
     completion: '100%',
     updated: 'Jul 12 at 3:30pm',
     type: 'Activity',
-    group: 'Onboard'
+    group: 'Onboard',
+    color: 'green'
   },
   {
     index: '4',
@@ -58,7 +63,8 @@ export const items = [
     completion: '100%',
     updated: 'Oct 10 at 7:30pm',
     type: 'Activity',
-    group: 'Onboard'
+    group: 'Onboard',
+    color: 'green'
   },
   {
     index: '5',
@@ -66,7 +72,8 @@ export const items = [
     completion: '100%',
     updated: 'Oct 15 at 3:30pm',
     type: 'Activity',
-    group: 'Research'
+    group: 'Research',
+    color: 'green'
   },
   {
     index: '6',
@@ -74,7 +81,8 @@ export const items = [
     completion: '100%',
     updated: 'Oct 16 at 3:30pm',
     type: 'Activity',
-    group: 'Research'
+    group: 'Research',
+    color: 'green'
   },
   {
     index: '7',
@@ -82,7 +90,8 @@ export const items = [
     completion: '0%',
     updated: 'Oct 2 at 7:30pm',
     type: 'Deliverable',
-    group: 'Research'
+    group: 'Research',
+    color: 'green'
   },
   {
     index: '8',
@@ -90,7 +99,8 @@ export const items = [
     completion: '0%',
     updated: 'Oct 23 at 9:30pm',
     type: 'Deliverable',
-    group: 'Design'
+    group: 'Design',
+    color: 'green'
   },
   {
     index: '9',
@@ -98,7 +108,8 @@ export const items = [
     completion: '0%',
     updated: 'Oct 5 at 8:30pm',
     type: 'Deliverable',
-    group: 'Design'
+    group: 'Design',
+    color: 'green'
   },
   {
     index: '10',
@@ -106,7 +117,8 @@ export const items = [
     completion: '0%',
     updated: 'Oct 4 at 7:30pm',
     type: 'Activity',
-    group: 'Design'
+    group: 'Design',
+    color: 'green'
   },
   {
     index: '11',
@@ -114,7 +126,8 @@ export const items = [
     completion: '0%',
     updated: 'Oct 23 at 7:30pm',
     type: 'Deliverable',
-    group: 'Prototype'
+    group: 'Prototype',
+    color: 'green'
   },
   {
     index: '12',
@@ -122,7 +135,8 @@ export const items = [
     completion: '0%',
     updated: 'Oct 31 at 4:30pm',
     type: 'Deliverable',
-    group: 'Prototype'
+    group: 'Prototype',
+    color: 'green'
   }
 ];
 

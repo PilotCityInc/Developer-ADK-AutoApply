@@ -70,13 +70,15 @@
 
         <Table
           v-model="programDoc"
-          :page-value="PageValue"
+          :page-value-index="PageValueIndex"
+          :timeline="timeline"
           class="module-default__table-view"
+          @input:PageValueIndex="PageValueIndex = $input"
         ></Table>
       </div>
 
       <div class="d-flex justify-center flex-row mt-12">
-        <div v-show="!setupAuto">
+        <div v-show="setUpAutoapply">
           <v-dialog v-model="endEarly" persistent max-width="400px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -112,7 +114,16 @@
                     >Cancel</v-btn
                   >
 
-                  <v-btn class="ma-2" x-large dark color="green" rounded depressed>End Early</v-btn>
+                  <v-btn
+                    class="ma-2"
+                    x-large
+                    dark
+                    color="green"
+                    rounded
+                    depressed
+                    @click="changeThanks"
+                    >End Early</v-btn
+                  >
                 </div>
               </v-container>
             </v-card>
@@ -300,6 +311,7 @@
             </v-card>
           </v-dialog>
         </div>
+        <div v-show="setupEndEarly">Thanks for Participating</div>
         <div>
           <v-dialog v-model="cancelApplication" persistent max-width="650px">
             <template v-slot:activator="{ on, attrs }">
@@ -336,7 +348,14 @@
                     >Just Kidding</v-btn
                   >
 
-                  <v-btn class="ma-2" x-large dark color="red" rounded depressed
+                  <v-btn
+                    class="ma-2"
+                    x-large
+                    dark
+                    color="red"
+                    rounded
+                    depressed
+                    @click="changeThanks"
                     >Cancel Application and End Early</v-btn
                   >
                 </div>
@@ -357,7 +376,7 @@ import { defineComponent, ref, computed, reactive, toRefs, PropType } from '@vue
 import { getModMongoDoc, getModAdk, loading } from 'pcv4lib/src';
 import Instruct from './ModuleInstruct.vue';
 import Table from './TableView.vue';
-import MongoDoc from '../types';
+import MongoDoc, { Timeline } from '../types';
 
 export default defineComponent({
   name: 'ModuleDefault',
@@ -374,10 +393,22 @@ export default defineComponent({
       required: true,
       type: Object as PropType<MongoDoc>
     },
-    currentPageTable: Number
+    PageValue: {
+      required: true,
+      type: Number
+    },
+    timeline: {
+      required: true,
+      type: Object as () => Timeline
+    }
   },
   setup(props, ctx) {
-    const PageValue = props.currentPageTable;
+    const PageValueIndex = computed({
+      get: () => props.PageValue,
+      set: newPage => {
+        ctx.emit('input:PageValue', newPage);
+      }
+    });
 
     const modal1 = ref('');
     const programDoc = getModMongoDoc(props, ctx.emit);
@@ -427,14 +458,31 @@ export default defineComponent({
 
     const autoApply = ref(false);
 
+    const endEarly = ref(false);
+
+    const setupEndEarly = ref(false);
+
+    const setUpAutoapply = ref(true);
+
+    const cancelApplication = ref(false);
+
     function populate() {
       setupAuto.value = true;
+      setUpAutoapply.value = false;
       autoApply.value = false;
       console.log(studentDoc);
       return new Promise((resolve, reject) => {
         studentDoc.value.update();
         resolve(true);
       });
+    }
+
+    function changeThanks() {
+      cancelApplication.value = false;
+      setupAuto.value = false;
+      endEarly.value = false;
+      setUpAutoapply.value = false;
+      setupEndEarly.value = true;
     }
 
     const setupInstructions = ref({
@@ -445,7 +493,7 @@ export default defineComponent({
 
     return {
       populate,
-      PageValue,
+      PageValueIndex,
       setupInstructions,
       showInstructions,
       programDoc,
@@ -453,8 +501,8 @@ export default defineComponent({
       dateSummer,
       modal1,
       adkData,
-      endEarly: false,
-      cancelApplication: false,
+      endEarly,
+      cancelApplication,
       autoApply,
       summerVacation: null,
       summerJob: null,
@@ -469,6 +517,9 @@ export default defineComponent({
       saveSummerDates,
       saveVacationDates,
       setupAuto,
+      changeThanks,
+      setupEndEarly,
+      setUpAutoapply,
       ...loading(populate, 'Saved Successfully', 'Could not save at this time')
     };
   }

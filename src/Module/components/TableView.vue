@@ -1,4 +1,4 @@
-<template :page-value="pageindex">
+<template>
   <div>
     <v-data-table
       :headers="header"
@@ -7,68 +7,87 @@
       :items-per-page="100"
       :hide-default-footer="true"
     >
-      <template v-slot:item.edit>
-        <v-btn depressed color="#E0E0E0" :ripple="false">Edit</v-btn>
+      <template v-slot:item.group="{ item }">
+        <v-chip depressed dark small :color="getColor(item.group)" :ripple="false">{{
+          item.group
+        }}</v-chip>
       </template>
 
       <template v-slot:item.click="{ item }">
-        <v-btn
-          v-model="PageValue"
-          outlined
-          depressed
-          x-small
-          :page-value="pageindex"
-          :ripple="false"
-          @click="pageSelection(item.index)"
+        <v-btn outlined depressed x-small :ripple="false" @click="pageSelection(item.index)"
           >Update</v-btn
         >
       </template>
 
-      <template v-slot:item.progress>
-        <v-progress-linear color="green" value="90"></v-progress-linear>
+      <template v-slot:item.type="{ item }">
+        <v-chip depressed outlined dark small :color="getColor(item.type)" :ripple="false">{{
+          item.type
+        }}</v-chip>
       </template>
 
       <template v-slot:item.status>
         <v-icon color="green" dark>mdi-lock-open-check</v-icon>
-
-        <!-- <v-icon color="orange" dark>mdi-alert-circle</v-icon> -->
-        <!-- <v-icon color="grey" dark>mdi-close-circle</v-icon> -->
       </template>
-
-      <!-- <template v-slot:item.type> -->
-      <!-- <v-chip color="red darken-4" dark small label disabled>Activity</v-chip> -->
-      <!-- <v-chip color="purple darken-4" dark outlined small disabled>Deliverable</v-chip> -->
-      <!-- <v-chip color="orange darken-4" dark small label disabled>Tool</v-chip> -->
-      <!-- </template> -->
-
-      <!-- <template v-slot:item.group>
-        <v-chip color="blue darken-4" dark x-small label disabled>Research</v-chip>
-      </template> -->
     </v-data-table>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from '@vue/composition-api';
+import { ref, defineComponent, computed } from '@vue/composition-api';
 import { items, HEADER } from './const';
+import { Timeline } from '../types';
 
 export default defineComponent({
   name: 'TableView',
   props: {
-    currentPageTable: Number
+    PageValue: {
+      required: true,
+      type: Number
+    },
+    timeline: {
+      required: true,
+      type: Object as () => Timeline
+    }
   },
-  setup(props) {
-    const PageValue = props.currentPageTable;
+
+  setup(props, ctx) {
+    const PageValueNumber = computed({
+      get: () => props.PageValue,
+      set: newPage => {
+        ctx.emit('input:PageValueIndex', newPage);
+      }
+    });
 
     const pageindex = ref();
-    console.log(PageValue);
+
     function pageSelection(index: any) {
-      pageindex.value = index;
-      console.log(props.currentPageTable);
-      console.log(pageindex.value);
+      PageValueNumber.value = index;
+      console.log(PageValueNumber.value);
     }
 
-    return { header: ref(HEADER), items, pageSelection, PageValue, pageindex };
+    function getColor(group: any) {
+      if (group === 'Onboard') {
+        return 'red';
+      }
+      if (group === 'Research') {
+        return 'green';
+      }
+      if (group === 'Design') {
+        return 'blue';
+      }
+      if (group === 'Prototype') {
+        return 'yellow';
+      }
+      if (group === 'Activity') {
+        return 'pink';
+      }
+      if (group === 'Deliverable') {
+        return 'purple';
+      }
+      return 'Null';
+    }
+
+    return { header: ref(HEADER), items, pageSelection, pageindex, getColor };
   }
 });
 </script>
