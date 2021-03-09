@@ -2,6 +2,7 @@
   <v-app>
     <Module
       v-model="programDocStub"
+      :user-type="userTypeStub"
       :student-doc="studentDoc"
       :timeline="timeline"
       :current-page-table="currentPageTable"
@@ -41,6 +42,7 @@ export default defineComponent({
 
       changeStream: {}
     });
+    const userTypeStub = 'organizer';
 
     const studentDoc: Ref<MongoDoc> = ref({
       data: {
@@ -72,6 +74,7 @@ export default defineComponent({
       programDocStub,
       studentDoc,
       timeline,
+      userTypeStub,
       currentPageTable
     };
   }

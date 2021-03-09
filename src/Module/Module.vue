@@ -3,7 +3,7 @@
   <v-container class="module">
     <div class="module__navbar">
       <v-btn
-        v-if="currentPage != 'preview'"
+        v-if="currentPage != 'preview' && userType === 'organizer'"
         class="module__navbar-button"
         outlined
         x-small
@@ -12,7 +12,7 @@
         >Preview</v-btn
       >
       <v-btn
-        v-if="currentPage == 'preview'"
+        v-if="currentPage == 'preview' && userType === 'organizer'"
         class="module__navbar-button"
         dark
         x-small
@@ -139,6 +139,13 @@ export default defineComponent({
     timeline: {
       required: true,
       type: Array as PropType<Timeline[]>
+    },
+    userType: {
+      required: true,
+      type: String
+      // participant: '',
+      // organizer: '',
+      // stakeholder: ''
     }
   },
   setup(props, ctx) {
@@ -159,6 +166,11 @@ export default defineComponent({
       subpages: ['Setup', 'Presets'],
       currentPage: 'Setup'
     });
+    if (props.userType === 'organizer') {
+      page.currentPage = 'setup';
+    } else {
+      page.currentPage = 'preview';
+    }
     const getComponent = computed(() => {
       return `module-${page.currentPage.toLowerCase()}`;
     });
