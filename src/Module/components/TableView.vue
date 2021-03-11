@@ -68,16 +68,16 @@ export default defineComponent({
 
     function getColor(group: any) {
       if (group === 'Onboard') {
-        return 'red';
+        return 'green';
       }
       if (group === 'Research') {
-        return 'green';
+        return 'red';
       }
       if (group === 'Design') {
         return 'blue';
       }
       if (group === 'Prototype') {
-        return 'yellow';
+        return 'orange';
       }
       if (group === 'Activity') {
         return 'pink';

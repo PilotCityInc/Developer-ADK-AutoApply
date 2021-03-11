@@ -48,20 +48,20 @@ export const items = [
     color: 'green'
   },
   {
-    // need to ask
     index: 3,
-    activity: 'Team',
+    activity: 'Discord',
     completion: '100%',
-    updated: 'Jul 12 at 3:30pm',
+    updated: 'Oct 10 at 7:30pm',
     type: 'Activity',
     group: 'Onboard',
     color: 'green'
   },
   {
+    // need to ask
     index: 4,
-    activity: 'Discord',
+    activity: 'Team',
     completion: '100%',
-    updated: 'Oct 10 at 7:30pm',
+    updated: 'Jul 12 at 3:30pm',
     type: 'Activity',
     group: 'Onboard',
     color: 'green'
@@ -86,7 +86,7 @@ export const items = [
   },
   {
     index: 7,
-    activity: 'Practice',
+    activity: 'Tinker',
     completion: '0%',
     updated: 'Oct 2 at 7:30pm',
     type: 'Deliverable',
@@ -131,7 +131,7 @@ export const items = [
   },
   {
     index: 12,
-    activity: 'Demonstration',
+    activity: 'Demonstrate',
     completion: '0%',
     updated: 'Oct 31 at 4:30pm',
     type: 'Deliverable',

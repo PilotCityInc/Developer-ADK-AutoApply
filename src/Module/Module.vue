@@ -4,18 +4,20 @@
     <div class="module__navbar">
       <v-btn
         v-if="currentPage != 'preview' && userType === 'organizer'"
-        class="module__navbar-button"
+        class="module__navbar-button font-weight-bold"
         outlined
-        x-small
+        small
+        rounded
         depressed
         @click="currentPage = 'preview'"
         >Preview</v-btn
       >
       <v-btn
         v-if="currentPage == 'preview' && userType === 'organizer'"
-        class="module__navbar-button"
+        class="module__navbar-button font-weight-bold"
         dark
-        x-small
+        small
+        rounded
         depressed
         color="red"
         @click="currentPage = 'setup'"
