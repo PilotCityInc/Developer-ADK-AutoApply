@@ -1,6 +1,6 @@
 <template>
   <ValidationObserver v-slot="{}" slim>
-    <div class="pa-0">
+    <v-container class="module-default pa-0">
       <div class="module-default__instructions">
         <v-expansion-panels v-model="showInstructions" class="module-default__instructions" flat>
           <v-expansion-panel>
@@ -367,7 +367,7 @@
       <!-- ENTER CONTENT HERE -->
       <!-- DESIGN YOUR ACTIVITY HERE / COMMENT OUT WHEN YOU'VE STARTED DESIGNING
       <div class="module-default__none">Design your activity here</div> -->
-    </div>
+    </v-container>
   </ValidationObserver>
 </template>
 
