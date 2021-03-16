@@ -44,7 +44,7 @@
         buffer-value="100"
         stream
       />
-      <div class="">
+      <div class="module-default__container">
         <div v-show="setupAuto">
           <div class="justify-center d-flex mt-12">
             <v-icon color="#f79961" x-large>mdi-airballoon</v-icon>
@@ -584,7 +584,7 @@ export default defineComponent({
   }
 
   &__container {
-    // width: 100%;
+    width: 100%;
     // padding: none;
     // margin: none;
     margin-top: 0px;

@@ -49,7 +49,7 @@ export const items = [
   },
   {
     index: 3,
-    activity: 'Discord',
+    activity: 'Community',
     completion: '100%',
     updated: 'Oct 10 at 7:30pm',
     type: 'Activity',
