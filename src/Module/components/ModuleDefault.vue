@@ -45,13 +45,6 @@
         stream
       />
       <div>
-        <!-- <div class="module-default__overall-statement">
-        <div class="module-default__secondary-statement">
-          <span class="module-default__main-statement">Congrats!</span>
-          You’ve won a position with your employer. Please review and agree to the following terms.
-          Accept or decline thereafter.
-        </div>
-      </div> -->
         <div v-show="setupAuto">
           <div class="justify-center d-flex mt-12">
             <v-icon color="#f79961" x-large>mdi-airballoon</v-icon>
