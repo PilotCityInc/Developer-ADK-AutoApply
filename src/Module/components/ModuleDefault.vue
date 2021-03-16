@@ -44,7 +44,7 @@
         buffer-value="100"
         stream
       />
-      <div>
+      <div class="">
         <div v-show="setupAuto">
           <div class="justify-center d-flex mt-12">
             <v-icon color="#f79961" x-large>mdi-airballoon</v-icon>
