@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="pa-0">
     <v-data-table
       :headers="header"
       :items="items"
       sort-by="resource"
       :items-per-page="100"
       :hide-default-footer="true"
-        class="module-default__data-table"
+      class="module-default__data-table"
     >
       <template v-slot:item.group="{ item }">
         <v-chip depressed dark small :color="getColor(item.group)" :ripple="false">{{
