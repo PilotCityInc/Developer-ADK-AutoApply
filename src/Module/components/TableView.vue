@@ -6,6 +6,7 @@
       sort-by="resource"
       :items-per-page="100"
       :hide-default-footer="true"
+        class="module-default__data-table"
     >
       <template v-slot:item.group="{ item }">
         <v-chip depressed dark small :color="getColor(item.group)" :ripple="false">{{
@@ -92,3 +93,11 @@ export default defineComponent({
   }
 });
 </script>
+<style lang="scss">
+.module-default {
+
+  &__data-table {
+    width: 100%;
+  }
+}
+  </style>
