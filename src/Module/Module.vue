@@ -160,7 +160,7 @@ export default defineComponent({
     });
 
     // ENTER ACTIVITY NAME BELOW
-    const moduleName = ref('Auto-Application');
+    const moduleName = ref('Auto-Apply');
     const page = reactive({
       subpages: ['Setup', 'Presets'],
       currentPage: 'Setup'
