@@ -1,5 +1,5 @@
 <template>
-  <ValidationObserver v-slot="{}" slim>
+  <ValidationObserver v-slot="{ invalid }" slim>
     <v-container class="module-default pa-0">
       <div class="module-default__instructions">
         <v-expansion-panels v-model="showInstructions" class="module-default__instructions" flat>
