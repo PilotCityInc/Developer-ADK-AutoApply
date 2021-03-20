@@ -2,7 +2,7 @@ export default interface MongoDoc {
   data: {
     adks: Record<string, any>[];
   };
-  update: () => Promise<any>;
+  update: (shouldMarkAsComplete?:any) => Promise<any>;
   changeStream: any;
 }
 

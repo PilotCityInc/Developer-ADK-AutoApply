@@ -407,7 +407,7 @@ export default defineComponent({
       summerHours: ''
     };
 
-    const { adkData } = getModAdk(
+    const { adkData, adkIndex } = getModAdk(
       props,
       ctx.emit,
       'autoapply',
@@ -460,6 +460,12 @@ export default defineComponent({
       return new Promise((resolve, reject) => {
         studentDoc.value.update();
         resolve(true);
+
+        // Tell the user they've auto-applied and let them continue to the next section.
+        adkData.value.update(() => ({
+          isComplete: true,
+          adkIndex: adkIndex
+        }));
       });
     }
 
