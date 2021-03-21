@@ -299,7 +299,16 @@
             </v-card>
           </v-dialog>
         </div>
-        <div v-show="setupEndEarly">Thanks for Participating</div>
+        <div v-show="setupEndEarly">
+          <div class="module-default__statement1 headline font-weight-bold mt-6 justify-center">
+            Thank you for participating. <br />
+          </div>
+          <div
+            class="module-default__statement2 headline font-weight-medium justify-center mt-6 ml-12 mr-12"
+          >
+            We will share your program results as soon as it is built. 
+          </div>
+        </div>
         <div>
           <v-dialog v-model="cancelApplication" persistent max-width="650px">
             <template v-slot:activator="{ on, attrs }">
