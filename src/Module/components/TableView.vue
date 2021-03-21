@@ -15,7 +15,7 @@
       </template>
 
       <template v-slot:item.click="{ item }">
-        <v-btn outlined depressed x-small :ripple="false" @click="pageSelection(item.index)"
+        <v-btn :disabled="userType === 'stakeholder'" outlined depressed x-small :ripple="false" @click="pageSelection(item.index)"
           >Update</v-btn
         >
       </template>

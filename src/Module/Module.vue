@@ -66,6 +66,7 @@
             v-model="programDoc"
             :student-doc="studentDocument"
             :page-value="PageValue"
+            :user-type="userType"
             :timeline="timelineDuplicate"
             @input:PageValue="PageValue = $event"
           />

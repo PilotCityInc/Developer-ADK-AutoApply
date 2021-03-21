@@ -68,6 +68,7 @@
           <v-dialog v-model="endEarly" persistent max-width="400px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
+                :disabled="userType === 'stakeholder'" 
                 v-bind="attrs"
                 x-large
                 color="grey"
@@ -118,6 +119,7 @@
           <v-dialog v-model="autoApply" persistent max-width="525px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
+                :disabled="userType === 'stakeholder'" 
                 v-bind="attrs"
                 x-large
                 rounded
@@ -302,6 +304,7 @@
           <v-dialog v-model="cancelApplication" persistent max-width="650px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
+                :disabled="userType === 'stakeholder'" 
                 v-show="setupAuto"
                 class="ml-3 mr-3"
                 v-bind="attrs"
