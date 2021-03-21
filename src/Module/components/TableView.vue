@@ -48,7 +48,14 @@ export default defineComponent({
     timeline: {
       required: true,
       type: Array as PropType<Timeline[]>
-    }
+    },
+    userType: {
+      required: true,
+      type: String
+      // participant: '',
+      // organizer: '',
+      // stakeholder: ''
+    },
   },
 
   setup(props, ctx) {
