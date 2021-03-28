@@ -15,7 +15,13 @@
       </template>
 
       <template v-slot:item.click="{ item }">
-        <v-btn :disabled="userType === 'stakeholder'" outlined depressed x-small :ripple="false" @click="pageSelection(item.index)"
+        <v-btn
+          :disabled="userType === 'stakeholder'"
+          outlined
+          depressed
+          x-small
+          :ripple="false"
+          @click="pageSelection(item.index)"
           >Update</v-btn
         >
       </template>
@@ -55,7 +61,7 @@ export default defineComponent({
       // participant: '',
       // organizer: '',
       // stakeholder: ''
-    },
+    }
   },
 
   setup(props, ctx) {
@@ -102,9 +108,8 @@ export default defineComponent({
 </script>
 <style lang="scss">
 .module-default {
-
   &__data-table {
     width: 100%;
   }
 }
-  </style>
+</style>

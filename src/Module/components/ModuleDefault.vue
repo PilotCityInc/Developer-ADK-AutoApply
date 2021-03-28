@@ -36,7 +36,14 @@
           </v-expansion-panel>
         </v-expansion-panels>
       </div>
-    <v-progress-linear class="mt-3" color="#dedede" height="2" value="100" buffer-value="100" stream />
+      <v-progress-linear
+        class="mt-3"
+        color="#dedede"
+        height="2"
+        value="100"
+        buffer-value="100"
+        stream
+      />
       <div class="module-default__container">
         <div v-show="setupAuto">
           <div class="justify-center d-flex mt-12">
@@ -54,21 +61,20 @@
           <div class="d-flex justify-center mb-12"></div>
         </div>
       </div>
-        <Table
-          v-model="programDoc"
-          :page-value="PageValueIndex"
-          :timeline="timeline"
-          class="module-default__table-view"
-          @input:PageValueIndex="PageValueIndex = $event"
-        ></Table>
-
+      <Table
+        v-model="programDoc"
+        :page-value="PageValueIndex"
+        :timeline="timeline"
+        class="module-default__table-view"
+        @input:PageValueIndex="PageValueIndex = $event"
+      ></Table>
 
       <div class="d-flex justify-center flex-row mt-12">
         <div v-show="setUpAutoapply">
           <v-dialog v-model="endEarly" persistent max-width="400px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                :disabled="userType === 'stakeholder'" 
+                :disabled="userType === 'stakeholder'"
                 v-bind="attrs"
                 x-large
                 color="grey"
@@ -119,7 +125,7 @@
           <v-dialog v-model="autoApply" persistent max-width="525px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                :disabled="userType === 'stakeholder'" 
+                :disabled="userType === 'stakeholder'"
                 v-bind="attrs"
                 x-large
                 rounded
@@ -288,7 +294,15 @@
                     >Cancel</v-btn
                   >
 
-                  <v-btn class="ma-2" x-large dark color="green" rounded depressed @click="process"
+                  <v-btn
+                    class="ma-2"
+                    x-large
+                    dark
+                    color="green"
+                    rounded
+                    depressed
+                    :disabled="invalid"
+                    @click="process"
                     ><v-icon left>mdi-check-all</v-icon>Auto-apply</v-btn
                   >
                 </div>
@@ -306,15 +320,15 @@
           <div
             class="module-default__statement2 headline font-weight-medium justify-center mt-6 ml-12 mr-12"
           >
-            We will share your program results as soon as it is built. 
+            We will share your program results as soon as it is built.
           </div>
         </div>
         <div>
           <v-dialog v-model="cancelApplication" persistent max-width="650px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                :disabled="userType === 'stakeholder'" 
                 v-show="setupAuto"
+                :disabled="userType === 'stakeholder'"
                 class="ml-3 mr-3"
                 v-bind="attrs"
                 outlined
@@ -370,7 +384,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, reactive, toRefs, PropType } from '@vue/composition-api';
+import { defineComponent, ref, computed, PropType } from '@vue/composition-api';
 import { getModMongoDoc, getModAdk, loading } from 'pcv4lib/src';
 import Instruct from './ModuleInstruct.vue';
 import Table from './TableView.vue';
@@ -389,7 +403,7 @@ export default defineComponent({
     },
     userType: {
       required: true,
-      type: String,
+      type: String
       // participant: '',
       // organizer: '',
       // stakeholder: ''
@@ -483,7 +497,7 @@ export default defineComponent({
         // Tell the user they've auto-applied and let them continue to the next section.
         adkData.value.update(() => ({
           isComplete: true,
-          adkIndex: adkIndex
+          adkIndex
         }));
       });
     }
