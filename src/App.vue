@@ -61,7 +61,7 @@ export default defineComponent({
 
     const timeline = [
       {
-        step: 'RFP',
+        step: 'Scope',
         unlocked: true
       },
       {

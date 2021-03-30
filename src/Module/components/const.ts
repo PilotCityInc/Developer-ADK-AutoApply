@@ -9,7 +9,7 @@
 //   { activities: 'Process Log' },
 //   { activities: 'Research' },
 //   { activities: 'Train' },
-//   { activities: 'RFP' }
+//   { activities: 'Scope' }
 // ];
 
 export const HEADER = [
