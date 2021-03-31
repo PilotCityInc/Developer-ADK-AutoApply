@@ -14,7 +14,7 @@
         }}</v-chip>
       </template>
 
-      <template v-slot:item.click="{ item }">
+      <!-- <template v-slot:item.click="{ item }">
         <v-btn
           :disabled="userType === 'stakeholder'"
           outlined
@@ -24,7 +24,7 @@
           @click="pageSelection(item.index)"
           >Update</v-btn
         >
-      </template>
+      </template> -->
 
       <template v-slot:item.type="{ item }">
         <v-chip depressed outlined dark small :color="getColor(item.type)" :ripple="false">{{

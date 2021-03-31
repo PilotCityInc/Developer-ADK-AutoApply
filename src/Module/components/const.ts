@@ -22,7 +22,7 @@ export const HEADER = [
 
   { text: 'Status', align: 'center', value: 'status', sortable: false, width: '5%' },
 
-  { text: 'Update', align: 'center', value: 'click', sortable: false, width: '20%' }
+  // { text: 'Update', align: 'center', value: 'click', sortable: false, width: '20%' }
 
   // { text: 'Update', align: 'center', value: 'color', sortable: false, width: '20%' }
 ];
