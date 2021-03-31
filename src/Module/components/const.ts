@@ -31,7 +31,7 @@ export const items = [
   {
     // need to ask
     index: 1,
-    activity: 'Start Program',
+    activity: 'Start',
     completion: '100%',
     updated: 'Today at 7:30pm',
     type: 'Activity',
@@ -40,7 +40,7 @@ export const items = [
   },
   {
     index: 2,
-    activity: 'Request for Projects',
+    activity: 'Scope',
     completion: '100%',
     updated: 'Yesterday at 12:30pm',
     type: 'Activity',
