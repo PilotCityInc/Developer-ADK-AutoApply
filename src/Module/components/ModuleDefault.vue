@@ -66,6 +66,7 @@
         :page-value="PageValueIndex"
         :timeline="timeline"
         class="module-default__table-view"
+        :user-type="userType"
         @input:PageValueIndex="PageValueIndex = $event"
       ></Table>
 

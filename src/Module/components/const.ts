@@ -20,7 +20,7 @@ export const HEADER = [
 
   { text: 'Type', align: 'center', value: 'type', sortable: false, width: '15%' },
 
-  { text: 'Status', align: 'center', value: 'status', sortable: false, width: '5%' },
+  { text: 'Status', align: 'center', value: 'status', sortable: false, width: '5%' }
 
   // { text: 'Update', align: 'center', value: 'click', sortable: false, width: '20%' }
 
