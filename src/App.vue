@@ -42,7 +42,6 @@ export default defineComponent({
 
       changeStream: {}
     });
-    const userTypeStub = 'organizer';
 
     const studentDoc: Ref<MongoDoc> = ref({
       data: {
@@ -69,6 +68,8 @@ export default defineComponent({
         unlocked: true
       }
     ];
+    const userTypeStub = 'organizer';
+    if (userTypeStub === 'organizer') studentDoc.value = null;
     const currentPageTable = ref(timeline.length - 1);
     return {
       programDocStub,

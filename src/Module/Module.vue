@@ -64,7 +64,7 @@
           <component
             :is="getComponent"
             v-model="programDoc"
-            :student-doc="studentDocument"
+            :student-doc="studentDoc || { data: { adks: [] }, update: () => {} }"
             :page-value="PageValue"
             :user-type="userType"
             :timeline="timelineDuplicate"
@@ -129,8 +129,7 @@ export default defineComponent({
       type: Object as PropType<MongoDoc>
     },
     studentDoc: {
-      required: true,
-      type: Object as PropType<MongoDoc>
+      required: true
     },
     currentPageTable: {
       required: true,
@@ -150,8 +149,6 @@ export default defineComponent({
   },
   setup(props, ctx) {
     const programDoc = getModMongoDoc(props, ctx.emit);
-
-    const studentDocument = getModMongoDoc(props, ctx.emit, {}, 'studentDoc', 'inputStudentDoc');
 
     const PageValue = computed({
       get: () => props.currentPageTable,
@@ -229,7 +226,6 @@ export default defineComponent({
       ...toRefs(timelineData),
       timelineDuplicate,
       comment,
-      studentDocument,
       programDoc,
       PageValue
     };
