@@ -13,7 +13,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
 import { defineComponent, Ref, ref } from '@vue/composition-api';
 // import ApolloExample from './components/ApolloExample.vue';
 import Module from './Module/Module.vue';
@@ -68,7 +67,7 @@ export default defineComponent({
         unlocked: true
       }
     ];
-    const userTypeStub = 'organizer';
+    const userTypeStub = 'participant';
     if (userTypeStub === 'organizer') studentDoc.value = null;
     const currentPageTable = ref(timeline.length - 1);
     return {

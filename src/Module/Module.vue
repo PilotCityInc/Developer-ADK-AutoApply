@@ -60,17 +60,18 @@
           </div>
         </div>
         <div class="module__page">
-          <!-- <keep-alive> -->
           <component
             :is="getComponent"
             v-model="programDoc"
-            :student-doc="studentDoc || { data: { adks: [] }, update: () => {} }"
+            :student-doc="
+              studentDoc || { data: { adks: [{ name: 'autoapply' }] }, update: () => {} }
+            "
             :page-value="PageValue"
             :user-type="userType"
             :timeline="timelineDuplicate"
             @input:PageValue="PageValue = $event"
+            @inputStudentDoc="$emit(userType === 'participant' ? 'inputStudentDoc' : 'n', $event)"
           />
-          <!-- </keep-alive> -->
         </div>
       </div>
     </div>

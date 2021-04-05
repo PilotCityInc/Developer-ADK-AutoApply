@@ -62,7 +62,7 @@
         </div>
       </div>
       <Table
-        v-model="programDoc"
+        :value="value"
         :page-value="PageValueIndex"
         :timeline="timeline"
         class="module-default__table-view"
@@ -161,7 +161,7 @@
                     ref="summerVacationMenu"
                     v-model="summerVacationMenu"
                     :close-on-content-click="dateVacation"
-                    :return-value.sync="adkData.vacationDates"
+                    :return-value.sync="vacationDates"
                     transition="scale-transition"
                     offset-y
                     min-width="auto"
@@ -207,7 +207,7 @@
                 <div v-if="summerJob" class="d-flex justify-center ml-12 mr-12">
                   <validation-provider v-slot="{ errors }" slim rules="numeric">
                     <v-text-field
-                      v-model="adkData.estimatedhours"
+                      v-model="estimatedhours"
                       :error-messages="errors"
                       label="How many estimated hours per week?"
                       hint="Enter number of hours only"
@@ -230,7 +230,7 @@
                     ref="summerClassesMenu"
                     v-model="summerClassesMenu"
                     :close-on-content-click="dateSummer"
-                    :return-value.sync="adkData.summerDates"
+                    :return-value.sync="summerDates"
                     transition="scale-transition"
                     offset-y
                     min-width="auto"
@@ -267,7 +267,7 @@
                   </v-menu>
                   <validation-provider v-slot="{ errors }" slim rules="numeric|required">
                     <v-text-field
-                      v-model="adkData.summerHours"
+                      v-model="summerHours"
                       :error-messages="errors"
                       label="How many hours on average per day?"
                       hint="Enter number of hours only"
@@ -385,8 +385,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, PropType } from '@vue/composition-api';
-import { getModMongoDoc, getModAdk, loading } from 'pcv4lib/src';
+import { defineComponent, ref, computed, PropType, reactive, toRefs } from '@vue/composition-api';
+import { getModAdk, loading } from 'pcv4lib/src';
 import Instruct from './ModuleInstruct.vue';
 import Table from './TableView.vue';
 import MongoDoc, { Timeline } from '../types';
@@ -431,14 +431,17 @@ export default defineComponent({
     });
 
     const modal1 = ref('');
-    const programDoc = getModMongoDoc(props, ctx.emit);
-    const studentDoc = getModMongoDoc(props, ctx.emit, {}, 'studentDoc', 'inputStudentDoc');
 
     const initAutoapplydefault = {
       vacationDates: [],
       estimatedhours: '',
       summerDates: [],
-      summerHours: ''
+      summerHours: '',
+      summerVacation: false,
+      summerVacationDates: [],
+      summerJob: false,
+      summerClasses: false,
+      summerClassesDates: []
     };
 
     const { adkData, adkIndex } = getModAdk(
@@ -449,31 +452,31 @@ export default defineComponent({
       'studentDoc',
       'inputStudentDoc'
     );
-
-    const summerClassesDates = ref([]);
-    const summerVacationDates = ref([]);
+    const state = reactive({
+      ...adkData.value
+    });
     const dateVacation = ref(false);
     const dateSummer = ref(false);
 
     function saveSummerDates() {
       dateSummer.value = true;
-      while (adkData.value.summerDates.length > 0) {
-        adkData.value.summerDates.pop();
+      while (state.summerDates.length > 0) {
+        state.summerDates.pop();
       }
-      adkData.value.summerDates.push(...summerClassesDates.value);
+      state.summerDates.push(...state.summerClassesDates);
 
-      // console.log(adkData.value.summerDates);
+      // console.log(state.summerDates);
     }
 
     function saveVacationDates() {
       dateVacation.value = true;
-      while (adkData.value.vacationDates.length > 0) {
-        adkData.value.vacationDates.pop();
+      while (state.vacationDates.length > 0) {
+        state.vacationDates.pop();
       }
-      adkData.value.vacationDates.push(...summerVacationDates.value);
+      state.vacationDates.push(...state.summerVacationDates);
       // console.log(adkData.value.vacationDates);
     }
-
+    // menus
     const setupAuto = ref(false);
 
     const autoApply = ref(false);
@@ -490,17 +493,12 @@ export default defineComponent({
       setupAuto.value = true;
       setUpAutoapply.value = false;
       autoApply.value = false;
-      console.log(studentDoc);
-      return new Promise((resolve, reject) => {
-        studentDoc.value.update();
-        resolve(true);
 
-        // Tell the user they've auto-applied and let them continue to the next section.
-        adkData.value.update(() => ({
-          isComplete: true,
-          adkIndex
-        }));
-      });
+      // Tell the user they've auto-applied and let them continue to the next section.
+      return props.studentDoc.update(() => ({
+        isComplete: true,
+        adkIndex
+      }));
     }
 
     function changeThanks() {
@@ -511,34 +509,19 @@ export default defineComponent({
       setupEndEarly.value = true;
     }
 
-    const setupInstructions = ref({
-      description: '',
-      instructions: ['', '', '']
-    });
     const showInstructions = ref(true);
 
     return {
       populate,
       PageValueIndex,
-      setupInstructions,
       showInstructions,
-      programDoc,
-      dateVacation,
-      dateSummer,
       modal1,
       adkData,
       endEarly,
       cancelApplication,
       autoApply,
-      summerVacation: null,
-      summerJob: null,
-      summerJobHours: null,
-      // summerCollege: null,
-      summerClasses: null,
-      summerClassesHours: null,
-      summerVacationDates,
+      ...toRefs(state),
       summerVacationMenu: false,
-      summerClassesDates,
       summerClassesMenu: false,
       saveSummerDates,
       saveVacationDates,
@@ -546,7 +529,10 @@ export default defineComponent({
       changeThanks,
       setupEndEarly,
       setUpAutoapply,
-      ...loading(populate, 'Saved Successfully', 'Could not save at this time')
+      ...loading(populate, 'Saved Successfully', 'Could not save at this time'),
+      state,
+      dateVacation,
+      dateSummer
     };
   }
 });
