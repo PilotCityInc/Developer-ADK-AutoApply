@@ -298,7 +298,7 @@
                   <v-btn
                     class="ma-2"
                     x-large
-                    dark
+                    outlined
                     color="green"
                     rounded
                     depressed
