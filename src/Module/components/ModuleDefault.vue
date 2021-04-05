@@ -321,7 +321,7 @@
           <div
             class="module-default__statement2 headline font-weight-medium justify-center mt-6 ml-12 mr-12"
           >
-            We will share your program results as soon as it is built.
+            We will deliver your program results soon.
           </div>
         </div>
         <div>
