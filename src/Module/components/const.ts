@@ -131,7 +131,7 @@ export const items = [
   },
   {
     index: 12,
-    activity: 'Demonstrate',
+    activity: 'Demo',
     completion: '0%',
     updated: 'Oct 31 at 4:30pm',
     type: 'Deliverable',
