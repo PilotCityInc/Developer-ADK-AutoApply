@@ -443,7 +443,8 @@ export default defineComponent({
       summerVacationDates: [],
       summerJob: false,
       summerClasses: false,
-      summerClassesDates: []
+      summerClassesDates: [],
+      setupAuto: false
     };
 
     const { adkData, adkIndex } = getModAdk(
@@ -479,7 +480,6 @@ export default defineComponent({
       // console.log(adkData.value.vacationDates);
     }
     // menus
-    const setupAuto = ref(false);
 
     const autoApply = ref(false);
 
@@ -492,7 +492,7 @@ export default defineComponent({
     const cancelApplication = ref(false);
 
     function populate() {
-      setupAuto.value = true;
+      state.setupAuto = true;
       setUpAutoapply.value = false;
       autoApply.value = false;
 
@@ -505,7 +505,7 @@ export default defineComponent({
 
     function changeThanks() {
       cancelApplication.value = false;
-      setupAuto.value = false;
+      state.setupAuto = false;
       endEarly.value = false;
       setUpAutoapply.value = false;
       setupEndEarly.value = true;
@@ -527,7 +527,6 @@ export default defineComponent({
       summerClassesMenu: false,
       saveSummerDates,
       saveVacationDates,
-      setupAuto,
       changeThanks,
       setupEndEarly,
       setUpAutoapply,
