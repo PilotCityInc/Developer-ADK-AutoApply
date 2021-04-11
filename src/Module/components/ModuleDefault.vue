@@ -308,9 +308,13 @@
                   >
                 </div>
               </v-container>
-              <v-alert v-if="success || error" :type="success ? 'success' : 'error'" class="mt-2">{{
-                message
-              }}</v-alert>
+              <v-alert
+                v-if="success || error"
+                dense
+                class="mt-3 white--text presets__alert"
+                :color="success ? 'green' : 'red'"
+                >{{ message }}</v-alert
+              >
             </v-card>
           </v-dialog>
         </div>
@@ -529,7 +533,7 @@ export default defineComponent({
       changeThanks,
       setupEndEarly,
       setUpAutoapply,
-      ...loading(populate, 'Saved Successfully', 'Could not save at this time'),
+      ...loading(populate, 'Success', 'Try again later'),
       state,
       dateVacation,
       dateSummer
