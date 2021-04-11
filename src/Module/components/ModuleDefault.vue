@@ -132,9 +132,8 @@
                 rounded
                 depressed
                 :ripple="false"
-                color="#6EBA7F"
-                dark
-                class="ml-3 mr-3"
+                color="#f79961"
+                class="ml-3 mr-3 white--text"
                 v-on="on"
                 ><v-icon left>mdi-check-all</v-icon>Auto-apply</v-btn
               >
@@ -286,7 +285,7 @@
                 <div class="d-flex flex-row justify-center mt-3 mb-5">
                   <v-btn
                     class="ma-2"
-                    color="red"
+                    color="grey"
                     outlined
                     x-large
                     rounded
@@ -296,10 +295,9 @@
                   >
 
                   <v-btn
-                    class="ma-2"
+                    class="ma-2 white--text"
                     x-large
-                    outlined
-                    color="green"
+                    color="#f79961"
                     rounded
                     depressed
                     :disabled="invalid"
