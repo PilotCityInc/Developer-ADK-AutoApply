@@ -444,7 +444,12 @@ export default defineComponent({
       summerJob: false,
       summerClasses: false,
       summerClassesDates: [],
-      setupAuto: false
+      setupAuto: false,
+      autoApply: false,
+      endEarly: false,
+      setupEndEarly: false,
+      setUpAutoapply: true,
+      cancelApplication: false
     };
 
     const { adkData, adkIndex } = getModAdk(
@@ -481,22 +486,16 @@ export default defineComponent({
     }
     // menus
 
-    const autoApply = ref(false);
-
-    const endEarly = ref(false);
-
-    const setupEndEarly = ref(false);
-
-    const setUpAutoapply = ref(true);
-
-    const cancelApplication = ref(false);
-
     function populate() {
       state.setupAuto = true;
-      setUpAutoapply.value = false;
-      autoApply.value = false;
+      state.setUpAutoapply = false;
+      state.autoApply = false;
 
       // Tell the user they've auto-applied and let them continue to the next section.
+      adkData.value = {
+        ...adkData.value,
+        ...state
+      };
       return props.studentDoc.update(() => ({
         isComplete: true,
         adkIndex
@@ -504,11 +503,11 @@ export default defineComponent({
     }
 
     function changeThanks() {
-      cancelApplication.value = false;
+      state.cancelApplication = false;
       state.setupAuto = false;
-      endEarly.value = false;
-      setUpAutoapply.value = false;
-      setupEndEarly.value = true;
+      state.endEarly = false;
+      state.setUpAutoapply = false;
+      state.setupEndEarly = true;
     }
 
     const showInstructions = ref(true);
@@ -519,17 +518,12 @@ export default defineComponent({
       showInstructions,
       modal1,
       adkData,
-      endEarly,
-      cancelApplication,
-      autoApply,
       ...toRefs(state),
       summerVacationMenu: false,
       summerClassesMenu: false,
       saveSummerDates,
       saveVacationDates,
       changeThanks,
-      setupEndEarly,
-      setUpAutoapply,
       ...loading(populate, 'Success', 'Try again later'),
       state,
       dateVacation,
