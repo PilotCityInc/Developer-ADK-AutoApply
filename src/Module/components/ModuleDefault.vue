@@ -508,6 +508,14 @@ export default defineComponent({
       state.endEarly = false;
       state.setUpAutoapply = false;
       state.setupEndEarly = true;
+      adkData.value = {
+        ...adkData.value,
+        ...state
+      };
+      return props.studentDoc.update(() => ({
+        isComplete: true,
+        adkIndex
+      }));
     }
 
     const showInstructions = ref(true);
