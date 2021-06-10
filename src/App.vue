@@ -47,7 +47,7 @@ export default defineComponent({
         adks: []
       },
       update: () => {
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
           setTimeout(() => {
             resolve(true);
             // reject(new Error('REJECTED'));
@@ -68,7 +68,6 @@ export default defineComponent({
       }
     ];
     const userTypeStub = 'participant';
-    if (userTypeStub === 'organizer') studentDoc.value = null;
     const currentPageTable = ref(timeline.length - 1);
     return {
       programDocStub,

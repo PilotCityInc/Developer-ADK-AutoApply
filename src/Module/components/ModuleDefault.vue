@@ -389,9 +389,13 @@
 <script lang="ts">
 import { defineComponent, ref, computed, PropType, reactive, toRefs } from '@vue/composition-api';
 import { getModAdk, loading } from 'pcv4lib/src';
+import * as dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import Instruct from './ModuleInstruct.vue';
 import Table from './TableView.vue';
 import MongoDoc, { Timeline } from '../types';
+
+dayjs.extend(utc);
 
 export default defineComponent({
   name: 'ModuleDefault',
@@ -472,8 +476,6 @@ export default defineComponent({
         state.summerDates.pop();
       }
       state.summerDates.push(...state.summerClassesDates);
-
-      // console.log(state.summerDates);
     }
 
     function saveVacationDates() {
@@ -482,7 +484,6 @@ export default defineComponent({
         state.vacationDates.pop();
       }
       state.vacationDates.push(...state.summerVacationDates);
-      // console.log(adkData.value.vacationDates);
     }
     // menus
 
@@ -491,11 +492,23 @@ export default defineComponent({
       state.setUpAutoapply = false;
       state.autoApply = false;
 
+      const presetDays =
+        props.value.data.adks.find((adk: any) => adk.name === 'scope')?.timedPresetDays ?? null;
+      console.log({ presetDays });
+
+      console.log(JSON.stringify(state));
       // Tell the user they've auto-applied and let them continue to the next section.
       adkData.value = {
         ...adkData.value,
         ...state
       };
+
+      if (presetDays) {
+        adkData.value.tentativeStartTime = dayjs.utc().add(presetDays, 'day');
+      }
+
+      // TODO: Trigger the timed preset
+      console.log('start the trigger here please', JSON.stringify(adkData.value));
       return props.studentDoc.update(() => ({
         isComplete: true,
         adkIndex
@@ -512,6 +525,9 @@ export default defineComponent({
         ...adkData.value,
         ...state
       };
+
+      // TODO: Cancel the timed preset
+      console.log('cancel the trigger here please');
       return props.studentDoc.update(() => ({
         isComplete: true,
         adkIndex
